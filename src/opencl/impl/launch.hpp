@@ -194,8 +194,9 @@ void set_argument(kernel_t const & kernel, parameter_index_t index, T&& argument
     set_argument<T>(lifted_kind_t<kind>{}, kernel, index, std::forward<T>(argument));
 }
 
-}
-}
+} // namespace detail
+
+} // namespace kernel
 
 namespace detail {
 

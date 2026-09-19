@@ -226,7 +226,7 @@ public:
     void finish() const;
 }; // class queue_t
 
-inline bool operator==(queue_t const& lhs, queue_t const& rhs) noexcept;
+bool operator==(queue_t const& lhs, queue_t const& rhs) noexcept;
 inline bool operator!=(queue_t const& lhs, queue_t const& rhs) noexcept { return not (lhs == rhs); }
 
 } // namespace opencl
