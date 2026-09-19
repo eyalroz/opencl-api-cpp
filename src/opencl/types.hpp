@@ -403,11 +403,11 @@ public:
 
 namespace nd_range {
 
-using size_t = std::size_t;
+using opencl::size_t;
 using opencl::dimension_index_t;
 using opencl::dimension_t;
 
-enum : size_t { max_dimensions = OCLW_MAX_NDRANGE_DIMENSIONS };
+enum : dimension_index_t { max_dimensions = OCLW_MAX_NDRANGE_DIMENSIONS };
 
 using dimensions_t = opencl::dimensions_t<max_dimensions>;
 using offset_t = opencl::offset_t<max_dimensions>;
