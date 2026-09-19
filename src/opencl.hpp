@@ -64,6 +64,7 @@
 #include "opencl/impl/sampler.hpp"
 #include "opencl/impl/image.hpp"
 #include "opencl/impl/builders/memory_object.hpp"
+#include "opencl/impl/builders/launch_config.hpp"
 #include "opencl/impl/builders/buffer.hpp"
 #include "opencl/impl/builders/image.hpp"
 
