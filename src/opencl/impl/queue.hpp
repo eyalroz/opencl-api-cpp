@@ -394,6 +394,14 @@ event_t enqueue_release_external_memory(queue_t queue, Container const& memory_o
     return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
+inline queue_t by_handle(handle_t handle, bool owning = false)
+{
+    auto device_handle = get_device_handle(handle);
+    auto context_handle = get_context_handle(handle);
+    auto platform_handle = context::detail::get_platform_handle(context_handle);
+    return wrap(platform_handle, context_handle, device_handle, handle, owning);
+}
+
 } // namespace detail
 } // namespace queue
 
