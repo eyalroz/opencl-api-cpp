@@ -148,7 +148,7 @@ using header_t = source_t;
 class compilation_t;
 class link_t;
 class build_info_t;
-}
+} // namespace program
 class context_t;
 class queue_t;
 using command_queue_t = queue_t;
@@ -163,14 +163,12 @@ class object_t;
 class copy_parameters_t;
 class properties_t;
 namespace local { struct allowance_t; }
-}
+} // namespace memory
 using memory_object_t = memory::object_t;
 namespace kernel {
 struct launch_configuration_t;
 class arguments_t; // Will we really be using this one?
-namespace parameter {
-struct info_t;
-}
+namespace parameter { struct info_t; }
 struct nd_range_info_t;
 } // namespace kernel
 namespace program {
@@ -178,13 +176,13 @@ class build_result_t;
 namespace compilation { struct options_t; }
 namespace link { struct options_t; }
 using build_options_t = compilation::options_t;
-}
+} // namespace program
 namespace image {
 class sampler_t;
 class array_t;
 struct format_t;
 struct spec_t;
-}
+} // namespace image
 
 namespace device {
 
@@ -322,7 +320,7 @@ class const_region_t;
 using flags_t = cl_svm_mem_flags;
 
 struct access_spec_t {
-    opencl::access_kind_t access_kind;
+    access_kind_t access_kind;
     bool fine_grain;
     bool atomics;
 };
@@ -339,7 +337,7 @@ flags_t make_flags(access_spec_t access_spec);
 access_spec_t read_and_write() noexcept;
 
 } // namespace shared_virtual
-#endif
+#endif // CL_VERSION_2_0
 
 } // namespace memory
 

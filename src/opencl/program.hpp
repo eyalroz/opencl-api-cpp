@@ -10,12 +10,7 @@
 
 namespace opencl {
 
-class kernel_t;
-
 namespace program {
-
-class with_kernels_t;
-class with_intermediate_language_t;
 
 namespace detail {
 
@@ -328,8 +323,6 @@ protected:
 }; // class build_step_result_t
 
 void unload_compiler();
-
-dynarray<kernel_t> create_all_kernels(with_kernels_t const& program);
 
 with_intermediate_language_t create_with_intermediate_language(
     context_t const &  context,

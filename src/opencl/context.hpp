@@ -32,7 +32,7 @@ context_t create(Container<opencl::device_t> const& devices);
 /// Create a context with all devices (possibly of a given type) on a given platform
 context_t create_with_all_devices(platform_t const& platform, optional<opencl::device::type_t> device_type = {});
 
-} // namespace device
+} // namespace context
 
 // TODO: Add support for context properties
 class context_t {
