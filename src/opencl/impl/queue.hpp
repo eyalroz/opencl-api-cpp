@@ -9,7 +9,6 @@
 #include "../queue.hpp"
 #include "../context.hpp"
 #include "../context_device.hpp"
-#include "../launch.hpp"
 #include "../image.hpp"
 
 #ifndef NDEBUG
@@ -134,7 +133,7 @@ queue::event_t queue_t::enqueue_kernel_launch(
     kernel::launch_configuration_t launch_config,
     Ts&&... additional_arguments) const
 {
-    return launch(kernel, *this, launch_config, std::forward<Ts>(additional_arguments)...);
+    return enqueue_launch(kernel, *this, launch_config, std::forward<Ts>(additional_arguments)...);
 }
 
 template <

@@ -26,6 +26,13 @@ queue_t create(context_t const& context, device_t const& device);
 
 } // namespace queue
 
+template <typename... Ts>
+queue::event_t enqueue_launch(
+    kernel_t const& kernel,
+    queue_t const& queue,
+    kernel::launch_configuration_t const& launch_config,
+    Ts&&... arguments);
+
 template <
     typename NativeKernelFunction,
     typename BufferParameterPositionContainer>

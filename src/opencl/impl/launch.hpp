@@ -2,7 +2,7 @@
 #define OPENCL_WRAPPERS_IMPL_LAUNCH_HPP_
 
 #include "../identify.hpp"
-#include "../launch.hpp"
+#include "../queue.hpp"
 
 namespace opencl {
 
@@ -200,7 +200,7 @@ void set_argument(kernel_t const & kernel, parameter_index_t index, T&& argument
 namespace detail {
 
 // To be called on kernels which have had all of their arguments set
-inline queue::event_t launch_primed_kernel(
+inline queue::event_t enqueue_primed_kernel_launch(
     kernel_t const& kernel,
     queue_t const& queue,
     kernel::launch_configuration_t const& launch_config)
@@ -230,7 +230,7 @@ void set_each_kernel_arg(kernel_t const& kernel, kernel::detail::parameter_index
 } // namespace detail
 
 template <typename... Ts>
-queue::event_t launch(
+queue::event_t enqueue_launch(
     kernel_t const& kernel,
     queue_t const& queue,
     kernel::launch_configuration_t const& launch_config,
@@ -248,7 +248,7 @@ queue::event_t launch(
 #endif
     kernel::detail::parameter_index_t index = 0;
     detail::set_each_kernel_arg(kernel, index, std::forward<Ts>(arguments)...);
-    return detail::launch_primed_kernel(kernel, queue, launch_config);
+    return detail::enqueue_primed_kernel_launch(kernel, queue, launch_config);
 }
 
 } // namespace opencl

@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
       .workgroup_size(256)
       .build();
 
-  opencl::launch(
+  opencl::enqueue_launch(
       vectorAdd, queue, launch_config,
       d_C, d_A, d_B, num_elements
   );
