@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref program::link_t class, and declarations
+ * of its named constructor idioms, and other related functions - including
+ * the different {@ref program::link_} functions, typically used to trigger
+ * a linking of compiled OpenCL device-code objects into proper kernels.
+ */
 #ifndef OPENCL_WRAPPERS_PROGRAM_LINK_HPP_
 #define OPENCL_WRAPPERS_PROGRAM_LINK_HPP_
 

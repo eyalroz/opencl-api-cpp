@@ -1,8 +1,8 @@
 /**
  * @file
  *
- * @brief A memory region class (@ref opencl::memory::region_t and @ref
- * opencl::memory::const_region_t) and related functionality.
+ * @brief A memory region class (a pair, really: @ref opencl::memory::region_t
+ * and @ref opencl::memory::const_region_t) and related functionality.
  *
  * @note There is no OpenCL-specific code in this file; the class is usable
  * entirely independently of the OpenCL APIs and GPUs in general. The only

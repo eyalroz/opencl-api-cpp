@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref program::common_options_t class, and
+ * declaration of functions related to rendering options to strings.
+ */
 #ifndef OPENCL_OPTIONS_COMMON_HPP_
 #define OPENCL_OPTIONS_COMMON_HPP_
 

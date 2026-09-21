@@ -1,3 +1,10 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref platform_t class,
+ * as well as declarations of named constructor idioms, comparisons and other
+ * utility functions.
+ */
 #ifndef OPENCL_WRAPPERS_PLATFORM_HPP_
 #define OPENCL_WRAPPERS_PLATFORM_HPP_
 
@@ -39,6 +46,12 @@ platform_t wrap(handle_t handle, optional<index_t> index = {}) noexcept;
 dynarray<platform_t> platforms();
 
 // TODO: Should a platform hold its index? It's mostly (only?) useful for error reporting.
+/**
+ * A class representing [OpenCL Platforms](https://registry.khronos.org/OpenCL/specs/unified/html/OpenCL_API.html#_platform_model),
+ * and wrapping the platform handle of the OpenCL C API.
+ *
+ * @note This is a reference type, as platforms are not created and destroyed, i.e. there is nothing to own.
+ */
 class platform_t {
 public:
     using handle_type = platform::handle_t;

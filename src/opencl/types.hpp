@@ -1,4 +1,11 @@
-
+/**
+ * @file
+ *
+ * @brief Declarations of most types used in the opencl-api-cpp library -
+ * aliases for underlying OpenCL types, simple utility types, a bunch of enums,
+ * and forward-declaration of heavier/more involved classes defined in their
+ * own separate files; and finally - definition of most library-wide constants.
+ */
 #ifndef OPENCL_WRAPPERS_TYPES_HPP_
 #define OPENCL_WRAPPERS_TYPES_HPP_
 

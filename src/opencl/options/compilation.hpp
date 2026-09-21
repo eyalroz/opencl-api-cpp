@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref program::compilation::options_t class, and
+ * declaration of its named constructor idiom and other related functions.
+ */
 #ifndef OPENCL_OPTIONS_COMPILATION_HPP_
 #define OPENCL_OPTIONS_COMPILATION_HPP_
 

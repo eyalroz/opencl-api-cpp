@@ -3,7 +3,7 @@
  *
  * @brief Contains an implementation of an std::span-like class, @ref opencl::span
  *
- * @note When compiling with C++20 or later, the actual std::span is used instead
+ * @note When compiling with C++20 or later, the actual std::span is used.
  */
 
 #ifndef OPENCL_WRAPPERS_SPAN_HPP_

@@ -3,6 +3,7 @@
  *
  * @brief An importation of an C++-17-like @ref opencl::optional class and related definitions.
  *
+ * @note When compiling with C++17 or later, the actual @ref std::optional class is used.
  */
 #ifndef OPENCL_WRAPPERS_UTIL_OPTIONAL_HPP_
 #define OPENCL_WRAPPERS_UTIL_OPTIONAL_HPP_

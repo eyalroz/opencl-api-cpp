@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definitions relating to representation and manipulation of versions - of
+ * the The OpenCL standard itself and of versioned entities represented in it.
+ */
 #ifndef OPENCL_WRAPPERS_VERSION_HPP_
 #define OPENCL_WRAPPERS_VERSION_HPP_
 

@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref device::capabilities_t class, and declaration
+ * of a named constructor idiom for it.
+ */
 #ifndef OPENCL_WRAPPERS_COMPUTE_CAPABILITIES_HPP_
 #define OPENCL_WRAPPERS_COMPUTE_CAPABILITIES_HPP_
 

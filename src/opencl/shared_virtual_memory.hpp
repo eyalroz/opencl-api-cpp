@@ -1,4 +1,14 @@
-
+/**
+ * @file
+ *
+ * @brief Declarations of functions and definitions of types related to OpenCL's
+ * "Shared Virtual Memory" mechanism - areas in memory which can be accessed
+ * directly, using the same address, from both host-side code and OpenCL kernel/
+ * device-side code.
+ *
+ * @note Shared Virtual Memory is only supported with OpenCL 2.0 or later; for
+ * older versions, this file is effectively empty.
+ */
 #ifndef OPENCL_WRAPPERS_SHARED_VIRTUAL_MEMORY_HPP_
 #define OPENCL_WRAPPERS_SHARED_VIRTUAL_MEMORY_HPP_
 

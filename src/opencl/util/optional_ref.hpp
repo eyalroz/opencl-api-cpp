@@ -2,7 +2,9 @@
  * @file
  *
  * @brief An implementation of a simplistic optional-reference class
- * (as optional<T&> is problematic semantically)
+ * (as optional<T&> is problematic semantically); see [Foonathan's blog
+ * entry](https://www.foonathan.net/2018/07/optional-reference/#content)
+ * about those.
  */
 #ifndef OPENCL_WRAPPERS_OPTIONAL_REF_HPP_
 #define OPENCL_WRAPPERS_OPTIONAL_REF_HPP_

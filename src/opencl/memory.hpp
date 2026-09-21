@@ -1,4 +1,9 @@
-
+/**
+ * @file
+ *
+ * @brief various functions, and a few type definitions, in the @ref opencl::memory
+ * namespace - relating to memory objects and operations on memory.
+ */
 #ifndef OPENCL_WRAPPERS_MEMORY_HPP_
 #define OPENCL_WRAPPERS_MEMORY_HPP_
 

@@ -5,6 +5,9 @@
  *
  * @note There is no OpenCL-specific code in this file, other than the name of the
  * enclosing namespace
+ *
+ * @note When compiling with C++14 or later, the actual @ref std::index_sequence and
+ * related functions are used.
  */
 #ifndef OPENCL_WRAPPERS_INDEX_SEQUENCE_HPP
 #define OPENCL_WRAPPERS_INDEX_SEQUENCE_HPP

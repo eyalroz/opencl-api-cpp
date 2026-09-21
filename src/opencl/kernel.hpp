@@ -1,3 +1,8 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref kernel_t class and declarations of related functions.
+ */
 #ifndef OPENCL_WRAPPERS_KERNEL_HPP_
 #define OPENCL_WRAPPERS_KERNEL_HPP_
 

@@ -1,7 +1,8 @@
 /**
  * @file
  *
- * @brief Miscellaneous utility code realted to memory allocation and deallocation
+ * @brief Non-OpenCL-specific utility code realted to memory allocation
+ * and deallocation
  */
 #ifndef OPENCL_WRAPPERS_UTIL_MEMORY_HPP_
 #define OPENCL_WRAPPERS_UTIL_MEMORY_HPP_

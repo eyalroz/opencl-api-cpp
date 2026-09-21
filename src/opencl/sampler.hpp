@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref sampler_t wrapper class - used in OpenCL kernel
+ * to access image objects - and related named constructor idios for it.
+ */
 #ifndef OPENCL_WRAPPERS_SAMPLER_HPP_
 #define OPENCL_WRAPPERS_SAMPLER_HPP_
 

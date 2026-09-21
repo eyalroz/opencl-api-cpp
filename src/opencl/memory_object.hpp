@@ -1,3 +1,10 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref memory::object_t class, declarations
+ * of its named constructor idioms, comparison operators and some related
+ * utility functions.
+ */
 #ifndef OPENCL_WRAPPERS_MEMORY_OBJECT_HPP_
 #define OPENCL_WRAPPERS_MEMORY_OBJECT_HPP_
 

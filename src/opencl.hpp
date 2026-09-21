@@ -1,4 +1,12 @@
-
+/**
+* @file
+ *
+ * @brief A master/top-level file which includes all 'interface' headers of the
+ * opencl-api-cpp library, and then all the 'implementation' headers.
+ *
+ * @note This is the header one would likely want to include in client code, to
+ * use the library.
+ */
 #ifndef OPENCL_WRAPPERS_OPENCL_HPP_
 #define OPENCL_WRAPPERS_OPENCL_HPP_
 

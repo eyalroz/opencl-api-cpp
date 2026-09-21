@@ -229,6 +229,7 @@ void set_each_kernel_arg(kernel_t const& kernel, kernel::detail::parameter_index
 
 } // namespace detail
 
+/// Prime an OpenCL kernel and enqueue it. Unfortunately,
 template <typename... Ts>
 queue::event_t enqueue_launch(
     kernel_t const& kernel,
