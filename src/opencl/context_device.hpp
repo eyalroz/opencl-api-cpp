@@ -1,3 +1,10 @@
+/**
+* @file
+ *
+ * @brief Definition of the @ref context::device_t class (not of its parent,
+ * context-independent, @ref opencl::device_t), and a declaration of a named
+ * constructor idiom for it.
+ */
 #ifndef OPENCL_WRAPPERS_CONTEXT_DEVICE_HPP_
 #define OPENCL_WRAPPERS_CONTEXT_DEVICE_HPP_
 

@@ -1,8 +1,9 @@
 /**
  * @file
  *
- * @brief An importation of an C++-17-like @ref opencl::variant class and related definitions.
+ * @brief An importation of a C++-17-like @ref opencl::variant class and related definitions.
  *
+ * @note When compiling with C++17 or later, the actual @ref std::variant class is used.
  */
 #ifndef OPENCL_WRAPPERS_UTIL_VARIANT_HPP_
 #define OPENCL_WRAPPERS_UTIL_VARIANT_HPP_

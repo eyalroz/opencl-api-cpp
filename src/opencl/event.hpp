@@ -1,3 +1,10 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref event_t and @ref queue::event_t classes,
+ * and declarations of their named constructor idioms and other functions
+ * related to events.
+ */
 #ifndef OPENCL_WRAPPERS_EVENT_HPP_
 #define OPENCL_WRAPPERS_EVENT_HPP_
 

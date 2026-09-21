@@ -2,18 +2,18 @@
  * @file
  *
  * @brief Declaration of functions producing strings for identifying
- * various OpenCL-related entities, for use in error messages.
+ * various OpenCL-related entities, for use (mostly) in error messages.
  *
- * @note None of the `identify()` functions are noexcept, because they create,
- * and return, `std::string`'s; otherwise; but otherwise, they _are_ noexcept,
+ * @note None of the `identify()` functions are `noexcept`, because they create,
+ * and return `std::string`'s; otherwise; but otherwise, they _are_ `noexcept`,
  * in the sense of not calling any code that is may throw, nor throwing
  * themselves. If there was some popular string class which involved dynamic
  * on-stack allocation, or perhaps was compositional and could reside on the
- * stack that way - we could wrap our exceptions around it instead of std::string
+ * stack that way - we could wrap our exceptions around it instead of `std::string`
  * and be completely noexcept.
  *
  * @todo Perhaps we should templatize the identify functions? The declarations are
- * rather redundant
+ * rather redundant.
  */
 #ifndef OPENCL_WRAPPERS_IDENTIFY_HPP_
 #define OPENCL_WRAPPERS_IDENTIFY_HPP_

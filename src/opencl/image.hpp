@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref image_t class and declarations of
+ * its named constructor idioms and other related functions.
+ */
 #ifndef OPENCL_WRAPPERS_IMAGE_HPP_
 #define OPENCL_WRAPPERS_IMAGE_HPP_
 

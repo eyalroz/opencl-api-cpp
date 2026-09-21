@@ -1,3 +1,10 @@
+/**
+ * @file
+ *
+ * @brief Definition of {@ref queue_t}, the OpenCL Command Queue class, and
+ * declaration of named constructor idioms, comparison operators and other
+ * related functions.
+ */
 #ifndef OPENCL_WRAPPERS_QUEUE_HPP_
 #define OPENCL_WRAPPERS_QUEUE_HPP_
 

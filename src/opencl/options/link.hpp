@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref program::link::options_t class, and
+ * declaration of its named constructor idiom and other related functions.
+ */
 #ifndef OPENCL_OPTIONS_LINK_HPP_
 #define OPENCL_OPTIONS_LINK_HPP_
 

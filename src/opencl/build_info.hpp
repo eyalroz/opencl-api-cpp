@@ -1,3 +1,9 @@
+/**
+* @file
+ *
+ * @brief Definition of the @ref build_info_t class, declaration of named constructor
+ * idioms for it, and some related functions.
+ */
 #ifndef OPENCL_WRAPPERS_BUILD_INFO_HPP_
 #define OPENCL_WRAPPERS_BUILD_INFO_HPP_
 

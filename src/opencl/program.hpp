@@ -1,3 +1,10 @@
+/**
+* @file
+*
+* @brief Definitions of a hierarchy of classes, with{@ref program_t} as
+* its base class, as well as declarationsof named constructor idioms, comparisons
+* and other related functions.
+*/
 #ifndef OPENCL_WRAPPERS_PROGRAM_HPP_
 #define OPENCL_WRAPPERS_PROGRAM_HPP_
 
@@ -84,7 +91,9 @@ with_kernels_t create_with_builtin_kernels(
 
 // TODO: Reference counting
 /**
- * @brief A base class for all entities which OpenCL refers to as "programs"
+ * @brief A class representing [OpenCL 'programs'](https://registry.khronos.org/OpenCL/specs/unified/html/OpenCL_API.html#_program_objects),
+ * wrapping the handle type of the OpenCL C API, and serving as a base class for more specialized
+ * program classes exhibiting various features/aspects.
  *
  * The OpenCL API uses a single handle for collections of entities at different points
  * in the process of building and preparing invocable, executable code: source files in either

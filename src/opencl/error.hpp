@@ -1,3 +1,10 @@
+/**
+ * @file
+ *
+ * @brief Facilities for exception-based handling of OpenCL errors, including
+ * the definition of @ref opencl::runtime_error, wrapping `std::runtime_error`.
+ *
+ */
 #ifndef OPENCL_WRAPPERS_ERROR_HPP_
 #define OPENCL_WRAPPERS_ERROR_HPP_
 

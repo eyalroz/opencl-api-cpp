@@ -1,3 +1,9 @@
+/**
+* @file
+ *
+ * @brief Definition of the @ref device_t class, declaration of a named constructor
+ * idiom for it, and some related functions.
+ */
 #ifndef OPENCL_WRAPPERS_DEVICE_HPP_
 #define OPENCL_WRAPPERS_DEVICE_HPP_
 

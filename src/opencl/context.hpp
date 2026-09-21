@@ -1,3 +1,9 @@
+/**
+* @file
+ *
+ * @brief Definition of the @ref context_t class, declaration of named constructor
+ * idioms for it, and some related functions.
+ */
 #ifndef OPENCL_WRAPPERS_CONTEXT_HPP_
 #define OPENCL_WRAPPERS_CONTEXT_HPP_
 

@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref pipe_t class and declarations
+ * of its named constructor idioms.
+ */
 #ifndef OPENCL_WRAPPERS_PIPE_HPP_
 #define OPENCL_WRAPPERS_PIPE_HPP_
 
@@ -22,7 +28,14 @@ pipe_t create(
 
 } // namespace pipe
 
-// @note: For in-kernel functions involving pipes see: @url https://registry.khronos.org/OpenCL/sdk/3.0/docs/man/html/pipeFunctions.html
+/**
+* @brief A class representing an [OpenCL pipe](https://registry.khronos.org/OpenCL/specs/unified/html/OpenCL_API.html#_pipes)
+* object, a kind of memory object used for FIFO communications by OpenCL
+* kernel/device code.
+*
+* @note: For in-kernel functions involving pipes see the [OpenCL reference page on
+* device-side pipe functions](https://registry.khronos.org/OpenCL/specs/unified/refpages/man/html/pipeFunctions.html)
+*/
 class pipe_t : public memory::object_t {
 public:
     using parent_type = memory::object_t;

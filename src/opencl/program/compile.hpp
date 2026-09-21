@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref program::compilation_t class, and declarations
+ * of its named constructor idioms, and other related functions - including
+ * the different {@ref program::compile_} functions typically used to trigger
+ * a compilation of OpenCL device-side source code.
+ */
 #ifndef OPENCL_WRAPPERS_PROGRAM_COMPILE_HPP_
 #define OPENCL_WRAPPERS_PROGRAM_COMPILE_HPP_
 

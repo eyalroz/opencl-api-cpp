@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref image::array_t class and declarations of
+ * its named constructor idioms and other related functions.
+ */
 #ifndef OPENCL_WRAPPERS_IMAGE_ARRAY_HPP_
 #define OPENCL_WRAPPERS_IMAGE_ARRAY_HPP_
 

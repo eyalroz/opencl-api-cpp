@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * @brief Definition of the @ref buffer_t class, and declarations of
+ * its named constructor idioms and other related functions.
+ */
 #ifndef OPENCL_WRAPPERS_BUFFER_HPP_
 #define OPENCL_WRAPPERS_BUFFER_HPP_
 
@@ -53,7 +59,6 @@ buffer_t create_sub_buffer(
 // TODO: Support creation with association to a set of devices via CL_MEM_DEVICE_HANDLE_LIST_KHR
 
 } // namespace buffer
-
 
 class buffer_t : public memory::object_t {
 public:
