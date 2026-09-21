@@ -295,6 +295,11 @@ inline memory::region_t context_t::allocate_shared_virtual(
     return memory::shared_virtual::allocate(*this, size, access_spec, alignment);
 }
 
+inline bool operator==(const context_t& lhs, const context_t& rhs) noexcept
+{
+    return lhs.platform_handle() == rhs.platform_handle() and lhs.handle() == rhs.handle();
+}
+
 } // namespace opencl
 
 #endif // OPENCL_WRAPPERS_IMPL_CONTEXT_HPP_
