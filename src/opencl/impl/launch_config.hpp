@@ -2,13 +2,13 @@
 #ifndef OPENCL_WRAPPERS_LAUNCH_CONFIG_IMPL_HPP_
 #define OPENCL_WRAPPERS_LAUNCH_CONFIG_IMPL_HPP_
 
-#include "../launch_config.hpp"
 #include "../device_capabilities.hpp"
 #include "../identify.hpp"
 
 namespace opencl {
 
 namespace kernel {
+
 namespace detail {
 
 // void validate_workgroup_dimension_compatibility(device_t const&, nd_range::workgroup_dimensions_t);
