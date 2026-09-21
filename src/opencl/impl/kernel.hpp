@@ -294,6 +294,14 @@ void kernel_t::set_acessible_device_ptrs(span<T*> const& device_ptrs) const
 #endif
 #endif
 
+inline bool operator==(kernel_t const& lhs, kernel_t const& rhs) noexcept
+{
+    // TODO: Is it not sufficient to merely compare the handles? Handles should be unique, after all
+    return lhs.platform_handle() == rhs.platform_handle() and
+        lhs.context_handle() == rhs.context_handle() and
+        lhs.program_handle() == rhs.program_handle() and
+        lhs.handle() == rhs.handle();
+}
 
 } // namespace opencl
 
