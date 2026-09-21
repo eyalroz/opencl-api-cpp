@@ -24,7 +24,6 @@
 #include "opencl/buffer.hpp"
 #include "opencl/pipe.hpp"
 #include "opencl/identify.hpp"
-#include "opencl/launch.hpp"
 #include "opencl/sampler.hpp"
 #include "opencl/image.hpp"
 #include "opencl/options/compilation.hpp"
