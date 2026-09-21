@@ -3,7 +3,6 @@
 
 #include "../identify.hpp"
 #include "../launch.hpp"
-#include "opencl/launch_config.hpp"
 
 namespace opencl {
 
@@ -208,11 +207,12 @@ inline queue::event_t launch_primed_kernel(
 {
     span<event::handle_t> no_events {};
     event::handle_t result_event_handle;
+    auto launch_config_offset = launch_config.offset ? launch_config.offset->data() : nullptr;
     auto status = clEnqueueNDRangeKernel(
         queue.handle(),
         kernel.handle(),
         launch_config.dimensions.dimensionality(),
-        launch_config.get_offset(),
+        launch_config_offset,
         launch_config.dimensions.overall.data(),
         launch_config.dimensions.workgroup.data(),
         no_events.size(), no_events.data(),

@@ -743,6 +743,15 @@ struct kernel_param_index_pair_t {
 
 } // namespace info
 
+namespace kernel {
+
+struct launch_configuration_t {
+    nd_range::composite_dimensions_t dimensions;
+    optional<nd_range::dimensions_t> offset;
+};
+
+} // namespace kerenl
+
 } // namespace opencl
 
 #define OCLW_CONCATENATE(s1, s2) s1##s2
