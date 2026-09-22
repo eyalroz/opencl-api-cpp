@@ -1,3 +1,12 @@
+/**
+* @file
+ *
+ * @brief Definition of the @ref ownership_token_t class, a subclass tailored
+ * to the kind of ownership tokens we need for OpenCL entity wrapper classes,
+ * named @handle_ownership_token_t , and finally, a macro facilitating the
+ * definition of relevant traits for each of these classes, that are necessary
+ * for them to have ownership tokens.
+ */
 #ifndef OPENCL_WRAPPERS_IMPL_OWERSHIP_TOKEN_HPP_
 #define OPENCL_WRAPPERS_IMPL_OWERSHIP_TOKEN_HPP_
 
