@@ -97,11 +97,6 @@ public:
         context::handle_t                     handle,
         bool                                  owning) noexcept;
 
-    // image requirements and such
-
-    // the notify function, destruction handle
-
-    // buffer creation of all sorts
     buffer_t create_buffer(size_t size, memory::host_and_kernel_access_t access_spec = memory::full_access()) const;
     buffer_t create_buffer_using(memory::region_t host_side_storage, memory::host_and_kernel_access_t access_spec = memory::full_access()) const; // CL_MEM_USE_HOST_PTR
     buffer_t create_buffer_copy_of(memory::region_t region_to_copy, memory::host_and_kernel_access_t access_spec = memory::full_access()) const; // CL_MEM_COPY_HOST_PTR
