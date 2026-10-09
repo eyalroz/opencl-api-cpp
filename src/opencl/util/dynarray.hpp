@@ -377,26 +377,33 @@ dynarray<typename Container::value_type> to_dynarray(Container const& container)
     auto iter = container.begin();
     return generate_dynarray<typename Container::value_type>(container.size(), [&](size_t) { return *(iter++); });
 }
+///@}
 
-/// @param[in] f A function which can transform elements of the {@tref Container} value type into
-///    elements of the intended dynarray's value type @tref T.
-template <typename T, typename Container, typename F>
-dynarray<T> to_dynarray(Container const& container, F && f)
+/**
+ * Generate a new @ref dynarray from the transformed elements of an existing container
+ *
+ * @param[in] container holds the elements to transform into the population of the new {@ref dynarray}.
+ *    In fact, this could just be any iterable with a `size()` function.
+ */
+/// @param[in] transformer A function which, acting on the {@tref Container} value type,
+///    produces elements of the output {@ref dynarray}'s value type @tref T.
+template <typename T, typename Container, typename Transformer>
+dynarray<T> transform_into_dynarray(Container const& container, Transformer && transformer)
 {
     auto iter = container.begin();
-    auto generator = [&](size_t) { return f(*(iter++)); };
+    auto generator = [&](size_t) { return transformer(*(iter++)); };
     return generate_dynarray<T, decltype(generator)>(container.size(), generator);
 }
 
-/// @param[in] f A function which applies to the {@tref Container} value type, whose
-///     result type determines the output dynarray's value type
-template <typename Container, typename F>
-dynarray<decltype(std::declval<F>()(std::declval<typename Container::value_type>()))>
-to_dynarray(Container const& container, F && f)
+/// @param[in] transformer A function acting on the {@tref Container} value type, and whose
+///     result type determines the output {@ref dynarray}'s value type
+template <typename Container, typename Transformer>
+auto transform_into_dynarray(Container const& container, Transformer && transformer) ->
+dynarray<decltype(transformer(container.front()))>
 {
-    auto iter = container.begin();
-    using value_type = decltype(f(*iter));
-    return generate_dynarray<value_type>(container.size(), [&](size_t) { return f(*(iter++)); });
+    using transformed_value_type = decltype(transformer(container.front()));
+    return transform_into_dynarray<transformed_value_type, Container, Transformer>(
+        container, std::forward<Transformer>(transformer));
 }
 ///@}
 

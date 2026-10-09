@@ -268,7 +268,7 @@ inline void kernel_t::set_acessible_svm_regions(span<void const*> region_ptrs) c
 inline void kernel_t::set_acessible_svm_regions(span<memory::shared_virtual::region_t> regions) const
 {
     static auto get_ptr = [](memory::shared_virtual::region_t const& region) { return region.data(); };
-    auto ptrs = to_dynarray<void const*>(regions, get_ptr);
+    auto ptrs = transform_into_dynarray<void const*>(regions, get_ptr);
     return set_acessible_svm_regions(ptrs);
 }
 

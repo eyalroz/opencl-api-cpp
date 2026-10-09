@@ -240,18 +240,18 @@ inline count_t capabilities_t::prospective_partition_size_for(affinity_domain_t 
 inline dynarray<version::named_t> capabilities_t::supported_extensions() const
 {
     auto raw_arr = info::get_array<CL_DEVICE_EXTENSIONS_WITH_VERSION>(device_handle_);
-    return to_dynarray(raw_arr, make_named_version);
+    return transform_into_dynarray(raw_arr, make_named_version);
 }
 inline dynarray<version::named_t> capabilities_t::supported_intermediate_languages() const
 {
     auto raw_arr = info::get_array<CL_DEVICE_ILS_WITH_VERSION>(device_handle_);
-    return to_dynarray(raw_arr, make_named_version);
+    return transform_into_dynarray(raw_arr, make_named_version);
 }
 
 inline dynarray<version::named_t> capabilities_t::builtin_kernels() const
 {
     auto raw_arr = info::get_array<CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION>(device_handle_);
-    return to_dynarray(raw_arr, make_named_version);
+    return transform_into_dynarray(raw_arr, make_named_version);
 }
 
 inline cl_device_atomic_capabilities capabilities_t::raw_atomic_memory_capabilities() const
@@ -272,7 +272,7 @@ inline bool capabilities_t::support_grids_with_global_work_dims_indivisible_by_l
 inline dynarray<version::named_t> capabilities_t::all_supported_opencl_versions() const
 {
     auto raw_arr = info::get_array<CL_DEVICE_OPENCL_C_ALL_VERSIONS>(device_handle_);
-    return to_dynarray(raw_arr, make_named_version);
+    return transform_into_dynarray(raw_arr, make_named_version);
 }
 
 inline nd_range::dimension_t capabilities_t::preferred_workgroup_size_quantum() const

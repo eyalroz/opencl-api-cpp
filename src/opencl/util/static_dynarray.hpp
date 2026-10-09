@@ -304,13 +304,31 @@ static_dynarray<typename Container::value_type, Capacity> to_static_dynarray(Con
 	return generate_static_dynarray<Capacity>(container.size(), gen);
 }
 
-template <size_t Capacity, typename Container, typename F>
-auto to_static_dynarray(Container const& container, F && f) ->
-static_dynarray<decltype(f(container.front())), Capacity>
+/**
+ * Generate a new @ref static_dynarray from the transformed elements of an existing container
+ *
+ * @param[in] container holds the elements to transform into the population of the new {@ref static_dynarray}.
+ *    In fact, this could just be any iterable with a `size()` function.
+ */
+/// @param[in] transformer A function which, acting on the {@tref Container} value type,
+///    produces elements of the output {@ref static_dynarray}'s value type @tref T.
+template <size_t Capacity, typename T, typename Container, typename Transformer>
+static_dynarray<T, Capacity> transform_into_static_dynarray(Container const& container, Transformer && transformer)
 {
 	auto iter = container.begin();
-	auto generator = [&](size_t) { return f(*(iter++)); };
+	auto generator = [&](size_t) { return transformer(*(iter++)); };
 	return generate_static_dynarray<Capacity>(container.size(), generator);
+}
+
+/// @param[in] transformer A function which, acting on the {@tref Container} value type,
+///    produces elements of the output {@ref static_dynarray}'s value type @tref T.
+template <size_t Capacity, typename Container, typename Transformer>
+auto transform_into_static_dynarray(Container const& container, Transformer && transformer) ->
+static_dynarray<decltype(transformer(container.front())), Capacity>
+{
+	using transformed_value_type = decltype(transformer(container.front()));
+	return transform_into_static_dynarray<Capacity, transformed_value_type, Container, Transformer>(
+		container, std::forward<Transformer>(transformer));
 }
 
 // TODO: Support generation of static_dynarray's with a lower size than capacity;

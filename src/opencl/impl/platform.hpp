@@ -322,7 +322,7 @@ inline std::chrono::nanoseconds platform_t::host_timer_resolution() const
 inline dynarray<version::named_t> platform_t::supported_extensions() const
 {
     auto raw = info::get_array<CL_PLATFORM_EXTENSIONS_WITH_VERSION>(handle_);
-    return to_dynarray(raw, make_named_version);
+    return transform_into_dynarray(raw, make_named_version);
 }
 #endif // CL_VERSION_3_0
 

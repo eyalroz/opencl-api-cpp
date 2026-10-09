@@ -49,7 +49,7 @@ inline handle_t create_handle(
         }
     }
 #endif
-    auto source_c_strs = to_dynarray<char const*>(source_strings, [](string_view sv) { return sv.data(); });
+    auto source_c_strs = transform_into_dynarray<char const*>(source_strings, [](string_view sv) { return sv.data(); });
     auto program_handle = clCreateProgramWithSource(context_handle, 1,
         source_c_strs.data(), lengths.data(), &status);
     throw_if_error_lazy(status, "clCreateProgramWithSource", "Failed creating an OpenCL program from source code in "
@@ -124,7 +124,7 @@ inline source_t create(
     span<input::text_source_t> const&  source_texts)
 {
     auto source_names_ = to_dynarray<string_view>(source_names);
-    auto source_texts_ = to_dynarray<string_view>(source_texts,
+    auto source_texts_ = transform_into_dynarray<string_view>(source_texts,
         [](input::text_source_t const & ts) { return ts.input; });
     return detail::create(context, std::move(source_names_), std::move(source_texts_));
 }
@@ -155,7 +155,7 @@ source_t create(
     context_t const&               context,
     Container<char const*> const&  source_texts)
 {
-    auto texts_ = to_dynarray<string_view>(source_texts,
+    auto texts_ = transform_into_dynarray<string_view>(source_texts,
         [](char const* cstr) -> string_view { return cstr; });
     static constexpr auto no_names = nullopt;
     return detail::create(context, no_names, std::move(texts_));

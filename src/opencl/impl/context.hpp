@@ -239,7 +239,7 @@ inline dynarray<context::device_t> context_t::devices() const
     auto handle_to_dev = [&](device::handle_t device_handle) {
         return context::device::wrap(platform_handle_, handle_, device_handle);
     };
-    return to_dynarray<context::device_t>(actual_handles, handle_to_dev);
+    return transform_into_dynarray<context::device_t>(actual_handles, handle_to_dev);
 }
 
 

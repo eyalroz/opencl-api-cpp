@@ -15,20 +15,20 @@ template <typename T> T           deref(optional<T> const& opt) { return *opt; }
 template <typename T, size_t Capacity>
 static_dynarray<optional<T>, Capacity> as_optionals(static_dynarray<T, Capacity> const& concrete)
 {
-    return to_static_dynarray<Capacity>(concrete, maybe<T>);
+    return transform_into_static_dynarray<Capacity>(concrete, maybe<T>);
 }
 
 template <typename T, size_t Capacity, typename S = T>
 static_dynarray<T, Capacity> concretize(static_dynarray<optional<T>, Capacity> const& optionals, S&& default_)
 {
     auto deref_ = [&](optional<T> const& opt) -> T { return opt.value_or(static_cast<T>(default_)); };
-    return to_static_dynarray<Capacity>(optionals, deref_);
+    return transform_into_static_dynarray<Capacity>(optionals, deref_);
 }
 
 template <typename T, size_t Capacity>
 static_dynarray<T, Capacity> concretize(static_dynarray<optional<T>, Capacity> const& optionals)
 {
-    return to_static_dynarray<Capacity>(optionals, maybe);
+    return transform_into_static_dynarray<Capacity>(optionals, maybe);
 }
 
 } // namespace detail

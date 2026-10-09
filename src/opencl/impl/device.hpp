@@ -282,7 +282,7 @@ inline dynarray<device_t> device_t::partition(device::partition::spec_t const& s
     throw_if_error_lazy(status, "clCreateSubDevices", "Partitioning " + opencl::detail::identify(*this) + " into "
         + std::to_string(num_parts) + " sub-devices " + opencl::name_of(spec.mode));
     auto handle_to_device = [&](device::handle_t handle) { return device::wrap(platform_handle_, handle); };
-    return to_dynarray<device_t>(part_handles, handle_to_device);
+    return transform_into_dynarray<device_t>(part_handles, handle_to_device);
 }
 #endif // CL_VERSION_1_2
 
