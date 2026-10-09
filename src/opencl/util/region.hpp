@@ -139,6 +139,19 @@ constexpr bool operator!=(const base_region_t<T>& lhs, const base_region_t<T>& r
 
 /**
  * An untyped, but sized, region in some memory space
+ *
+ * Three ways to look at this class (and thje motivation for its existence):
+ *
+ * 1. It is just the "rouding out" of a `struct { void* ptr; size_t size; }`
+ *    with convenience methods.
+ * 2. It is the natural result of a memory allocation (when we ignore C++'
+ *    to intricate allocation & de-allocation with typed construction)
+ * 3. It is what you would get from type-erasing a span<T>.
+ *
+ * @note A memory region, in itself, is not an owning type! The region
+ * it indicates may be owned, of course; and this is similar to span<T>.
+ *
+ * @question Should this class really be based on a byte pointer?
  */
 struct region_t : detail::base_region_t<void> {
 	using parent_type = detail::base_region_t<void>;

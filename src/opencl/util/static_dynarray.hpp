@@ -22,8 +22,8 @@
 namespace opencl {
 
 /**
- * A class combining features of `std::array`, `static_dynarray` and `static_vector`: 
- * Fixed capacity set at compile-time; size set at construction time; and no resizing.
+ * A class combining features of `std::static_vector` and `std::dynarray`: Fixed capacity set
+ * at compile-time; size set at construction time; storage inside the class; and no resizing.
  *
  * @todo mark noexcept carefully where possible
  *

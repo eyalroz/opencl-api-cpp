@@ -1,7 +1,8 @@
 /**
  * @file
  *
- * @brief A simplistic implementation of std::index_sequence, backported from C++14
+ * @brief Contains the `opencl::index_sequence` class and the `opencl::make_index_sequence`
+ * type.
  *
  * @note There is no OpenCL-specific code in this file, other than the name of the
  * enclosing namespace
@@ -21,6 +22,7 @@ using std::make_index_sequence;
 
 #else
 
+/// A simplistic implementation of std::index_sequence, backported from C++14.
 template<std::size_t... Indices>
 struct index_sequence {
     using value_type = std::size_t;
@@ -38,6 +40,9 @@ struct make_index_sequence_helper<N, N, Indices...>
 {
     using type = index_sequence<Indices...>;
 };
+
+/// An implementation of std::make_index_sequence, based on the
+/// backported @ref opencl::index_sequence type
 template<std::size_t N>
 using make_index_sequence = typename make_index_sequence_helper<0, N>::type;
 #endif // __cplusplus >= 201402L

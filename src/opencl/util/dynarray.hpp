@@ -357,6 +357,13 @@ generate_dynarray(size_t size, Generator generator_by_index) noexcept
 }
 ///@}
 
+/**
+ * Generate a new dynarray containing a copy of the elements in an existing container.
+ *
+ * @param[in] container a container. In fact, this could just be any iterable with a
+ * `size()` function.
+ */
+///@{
 template <typename T, typename Container>
 dynarray<T> to_dynarray(Container const& container)
 {
@@ -371,6 +378,8 @@ dynarray<typename Container::value_type> to_dynarray(Container const& container)
     return generate_dynarray<typename Container::value_type>(container.size(), [&](size_t) { return *(iter++); });
 }
 
+/// @param[in] f A function which can transform elements of the {@tref Container} value type into
+///    elements of the intended dynarray's value type @tref T.
 template <typename T, typename Container, typename F>
 dynarray<T> to_dynarray(Container const& container, F && f)
 {
@@ -379,6 +388,8 @@ dynarray<T> to_dynarray(Container const& container, F && f)
     return generate_dynarray<T, decltype(generator)>(container.size(), generator);
 }
 
+/// @param[in] f A function which applies to the {@tref Container} value type, whose
+///     result type determines the output dynarray's value type
 template <typename Container, typename F>
 dynarray<decltype(std::declval<F>()(std::declval<typename Container::value_type>()))>
 to_dynarray(Container const& container, F && f)
@@ -387,6 +398,8 @@ to_dynarray(Container const& container, F && f)
     using value_type = decltype(f(*iter));
     return generate_dynarray<value_type>(container.size(), [&](size_t) { return f(*(iter++)); });
 }
+///@}
+
 } // namespace opencl
 
 #endif // OPENCL_WRAPPERS_DYNARRAY_HPP_

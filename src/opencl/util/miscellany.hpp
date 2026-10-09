@@ -18,6 +18,12 @@
 namespace opencl {
 namespace detail {
 
+/**
+ * round up an integral value to a full multiple of another value
+ *
+ * @note the modules is expected to be positive; and the rounding _is_
+ * always up, i.e. towards positive-infinity, and not away-from-zero.
+ */
 template <typename I, typename I2 = I>
 constexpr I round_up(I x, I2 modulus) noexcept
 {
@@ -28,6 +34,11 @@ constexpr I round_up(I x, I2 modulus) noexcept
     return (x % modulus == 0) ? x : x + (modulus - x%modulus);
 }
 
+/**
+ * A logical xor function (as C++ is missing this as an operator)
+ *
+ * @return true if the two operands do not have the same truth value
+ */
 constexpr bool lxor(bool lhs, bool rhs) noexcept { return (lhs and not rhs) or (rhs and not lhs); }
 
 /// return the sequence of tokens within a delimited string - each token a view into the
@@ -51,6 +62,14 @@ inline CONSTEXPR_CPP20 std::vector<string_view> split(string_view str, char sepa
 
 #ifdef CL_VERSION_1_2
 
+/**
+ * Join multiple strings into a single sequence of characters
+ *
+ * @note performs the opposite of @ref split, more or less.
+ *
+ * @param[in] separator a character to be appended to the output after each of
+ * the input strings' contents, separating them from the next string.
+ */
 inline dynarray<char> join(span<string_view const> strings, char separator)
 {
     auto sum_of_lengths = std::accumulate(strings.begin(), strings.end(), size_t{0},
