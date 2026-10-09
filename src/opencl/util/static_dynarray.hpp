@@ -60,8 +60,6 @@ public: // type definitions
 
 public: // member getters
 	constexpr size_t size() const noexcept { return size_;}
-	// value_type (&data() noexcept)[capacity] { return data_;}
-	// value_type const (&data() const noexcept)[capacity] { return data_;}
 	CONSTEXPR_CPP14 pointer data() noexcept { return data_;}
 	constexpr const_pointer data() const noexcept { return data_;}
 
@@ -69,7 +67,6 @@ public: // other non-mutator methods
 	size_t max_size() const noexcept { return capacity; }
 	bool empty() const noexcept { return size_ == 0; }
 	bool full() const noexcept { return size_ == capacity; }
-	// constexpr span<value_type> as_span() const noexcept { return { data_, size_ }; }
 
 protected: // data members
 	size_t size_;
@@ -215,14 +212,6 @@ public: // operators
 		return *this;
 		// other will be destructed, and our previous pointer - released if necessary
 	}
-
-	// constexpr operator memory::const_region_t() const noexcept { return { data(), size() * sizeof(T) }; }
-
-	// template<typename = typename enable_if_t<! std::is_const<value_type>::value>>
-	// constexpr operator memory::region_t() const noexcept { return { data(), size() * sizeof(value_type) }; }
-
-	// constexpr operator span_type() const noexcept { return as_span(); }
-
 }; // class static_dynarray
 
 #if __cpp_deduction_guides >= 201606
