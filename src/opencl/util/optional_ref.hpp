@@ -12,7 +12,23 @@
 #include "optional.hpp"
 
 namespace opencl {
-
+/**
+ * A class for optionally holding a reference to a value of some type.
+ *
+ * This class complements the C++17 standard library's optional<T> class,
+ * or the backported optional implementation in `optional.hpp`: Those
+ * optionals' contained type must not be a reference. The C++ standards
+ * committee could not agree on how references-in-optionals are to be
+ * handled, and refrained from defining any meaning from them - until
+ * C++26. See this discussion of the matter by Jonathan Muller (2018):
+ *
+ * @url https://www.foonathan.net/2018/07/optional-reference/
+ *
+ * @note If you are wondering: "What did you choose to do with assignment,
+ * then?" - the answer is: Nothing! To avoid any confusion and frustrate
+ * everyone equitably, one cannot assign to an optional_ref - one needs
+ * to either assign to the value in it, or to `rebind()` it.
+ */
 template<typename T>
 struct optional_ref {
 	optional_ref &operator=(const optional_ref &other) = default;
@@ -66,6 +82,14 @@ struct optional_ref {
 protected:
 	T* ptr_;
 };
+
+template <typename T>
+bool operator==(optional_ref<T> const &lhs, optional_ref<T> const &rhs) noexcept
+{ return lhs.has_value() == rhs.has_value() and (not lhs.has_value() or *lhs == *rhs); }
+
+template <typename T>
+bool operator!=(optional_ref<T> const &lhs, optional_ref<T> const &rhs) noexcept
+{ return not (lhs == rhs); }
 
 } // namespace opencl
 
