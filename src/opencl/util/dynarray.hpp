@@ -350,7 +350,7 @@ dynarray<T> generate_dynarray(size_t size, Generator generator_by_index)
 
 template <typename Generator>
 dynarray<decltype(std::declval<Generator>()(0))>
-generate_dynarray(size_t size, Generator generator_by_index) noexcept
+generate_dynarray(size_t size, Generator generator_by_index)
 {
     using T = decltype(std::declval<Generator>()(0));
     return generate_dynarray<T, Generator>(size, std::forward<Generator>(generator_by_index));
