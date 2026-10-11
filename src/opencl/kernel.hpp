@@ -19,7 +19,9 @@ kernel_t wrap(
     context::handle_t   context_handle,
     program::handle_t   program_handle,
     handle_t            kernel_handle,
-    bool                is_owning) noexcept;
+    bool                owning) noexcept;
+
+kernel_t from_handle(handle_t handle, bool owning = false);
 
 kernel_t instantiate(program::with_kernels_t const& program, char const* kernel_name);
 dynarray<kernel_t> instantiate_all(program::with_kernels_t const& program);

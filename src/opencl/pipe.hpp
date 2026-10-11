@@ -19,6 +19,8 @@ pipe_t wrap(
     handle_t            handle,
     bool                owning) noexcept;
 
+pipe_t from_handle(handle_t handle, bool owning);
+
 pipe_t create(
     context_t const& context,
     packet_size_t packet_size,

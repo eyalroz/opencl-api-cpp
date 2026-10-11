@@ -32,7 +32,6 @@ inline char const* info::traits_t<info::memory_object>::attribute_name(attribute
     }
 }
 
-
 namespace detail {
 
 OCLW_DEFINE_HANDLE_TRAITS("memory object", memory::handle_t, clReleaseMemObject, clRetainMemObject);
@@ -192,6 +191,13 @@ inline object_t wrap(
     bool               owning) noexcept
 {
     return object_t(platform_handle, context_handle, handle, owning);
+}
+
+inline object_t from_handle(handle_t handle, bool owning)
+{
+    auto context_handle = detail::get_context_handle(handle);
+    auto platform_handle = context::detail::get_platform_handle(context_handle);
+    return wrap(platform_handle, context_handle, handle, owning);
 }
 
 inline platform_t object_t::platform() const noexcept

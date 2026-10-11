@@ -26,6 +26,8 @@ source_t wrap(
     optional<dynarray<string_view>>  source_texts,
     bool                             owning) NOEXCEPT_IF_NDEBUG;
 
+source_t from_handle(handle_t handle, bool owning = false);
+
 } // namespace source
 
 class source_t : public virtual program_t {

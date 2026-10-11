@@ -27,6 +27,8 @@ object_t wrap(
     memory::handle_t   handle,
     bool               owning) noexcept;
 
+object_t from_handle(handle_t handle, bool owning = false);
+
 /// A common base class for OpenCL buffers, images and pipes - all of involve some
 /// memory opaquely held OpenCL
 class object_t {

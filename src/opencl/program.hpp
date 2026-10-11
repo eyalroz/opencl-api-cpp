@@ -34,6 +34,8 @@ program_t wrap(
     program::handle_t   program_handle,
     bool                owning) noexcept;
 
+program_t from_handle(handle_t handle, bool owning = false);
+
 with_kernels_t wrap_with_kernels(
     platform::handle_t platform_handle,
     context::handle_t context_handle,

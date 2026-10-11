@@ -86,18 +86,6 @@ inline platform::handle_t get_platform_handle(handle_t handle)
     return info::get_scalar<CL_DEVICE_PLATFORM>(device_handles.front());
 }
 
-inline context_t by_handles(platform::handle_t platform_handle, handle_t handle, bool owning)
-{
-    auto device_handles = get_device_handles(handle);
-    return wrap(platform_handle, std::move(device_handles), handle, owning);
-}
-
-inline context_t by_handle(handle_t handle, bool owning = false)
-{
-    platform::handle_t platform_handle = get_platform_handle(handle);
-    return by_handles(platform_handle, handle, owning);
-}
-
 inline handle_t create(
     cl_context_properties const * marshalled_properties,
     span<device::handle_t> device_handles)
@@ -165,7 +153,13 @@ inline context_t wrap(
     handle_t                             handle,
     bool                                 owning) noexcept
 {
-    return context_t { platform_handle, std::move(device_handles), handle, owning };
+    return { platform_handle, std::move(device_handles), handle, owning };
+}
+
+inline context_t from_handle(handle_t handle, bool owning)
+{
+    auto platform_handle = detail::get_platform_handle(handle);
+    return wrap(platform_handle, {}, handle, owning);
 }
 
 // TODO: What about properties? :-(

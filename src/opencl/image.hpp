@@ -128,6 +128,8 @@ image_t wrap(
     optional<spec_t>   spec,
     bool               owning) NOEXCEPT_IF_NDEBUG;
 
+image_t from_handle(memory::handle_t handle, bool owning = false);
+
 // What about the storage? Make copy of? and so on?
 image_t create(
     context_t const&          context,

@@ -26,6 +26,8 @@ buffer_t wrap(
     memory::handle_t   handle,
     bool               owning) noexcept;
 
+buffer_t from_handle(handle_t handle, bool owning = false);
+
 buffer_t create(
     context_t const& context,
     size_t size,

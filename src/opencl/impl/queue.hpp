@@ -86,13 +86,21 @@ inline queue_t create(context_t const& context, device::handle_t device_handle)
 } // namespace detail
 
 inline queue_t wrap(
-    platform::handle_t platform_handle,
-    context::handle_t context_handle,
+    platform::handle_t  platform_handle,
+    context::handle_t   context_handle,
     device::handle_t    device_handle,
     handle_t            handle,
     bool                owning) noexcept
 {
     return queue_t { platform_handle, context_handle, device_handle, handle, owning };
+}
+
+inline queue_t from_handle(handle_t handle, bool owning)
+{
+    auto context_handle = detail::get_context_handle(handle);
+    auto platform_handle = context::detail::get_platform_handle(context_handle);
+    auto device_handle = detail::get_device_handle(handle);
+    return wrap(platform_handle, context_handle, device_handle, handle, owning);
 }
 
 // TODO: What about properties? :-(
@@ -393,7 +401,7 @@ event_t enqueue_release_external_memory(queue_t queue, Container const& memory_o
     return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
-inline queue_t by_handle(handle_t handle, bool owning = false)
+inline queue_t from_handle(handle_t handle, bool owning = false)
 {
     auto device_handle = get_device_handle(handle);
     auto context_handle = get_context_handle(handle);

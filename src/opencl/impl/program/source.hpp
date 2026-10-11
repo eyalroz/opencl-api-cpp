@@ -27,6 +27,12 @@ inline source_t wrap(
     return source_t { platform_handle, context_handle, program_handle, std::move(names), std::move(source_texts), owning };
 }
 
+inline source_t from_handle(handle_t handle , bool owning)
+{
+    auto prog = detail::from_handle(handle, is_not_owning);
+    return wrap(prog.platform_handle(), prog.context_handle(), handle, {}, {}, owning);
+}
+
 namespace detail {
 
 inline handle_t create_handle(

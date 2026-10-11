@@ -28,6 +28,8 @@ queue_t wrap(
     handle_t            handle,
     bool                owning) noexcept;
 
+queue_t from_handle(handle_t handle, bool owning = false);
+
 queue_t create(context::device_t const& device);
 queue_t create(context_t const& context, device_t const& device);
 

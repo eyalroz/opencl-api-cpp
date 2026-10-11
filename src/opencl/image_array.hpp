@@ -41,6 +41,8 @@ array_t wrap(
     optional<spec_t>&&  constituent_image_spec,
     bool                owning) NOEXCEPT_IF_NDEBUG;
 
+array_t from_handle(memory::handle_t handle, bool owning = false);
+
 } // namespace array
 
 /**
@@ -88,7 +90,6 @@ public:
         size_t              num_images,
         optional<spec_t>&&  constituent_image_spec,
         bool                owning) NOEXCEPT_IF_NDEBUG;
-
 
     spec_t const& constituent_image_spec() const;
     size_t size() const noexcept { return num_images_; }

@@ -2,6 +2,7 @@
 #ifndef OPENCL_WRAPPERS_IMPL_IMAGE_ARRAY_HPP_
 #define OPENCL_WRAPPERS_IMPL_IMAGE_ARRAY_HPP_
 
+#include "../image_array.hpp"
 #include "image.hpp"
 
 namespace opencl {
@@ -17,6 +18,13 @@ inline array_t wrap(
     bool               owning) NOEXCEPT_IF_NDEBUG
 {
     return array_t{platform_handle, context_handle, handle, num_images, std::move(constituent_image_spec), owning};
+}
+
+inline array_t from_handle(memory::handle_t handle, bool owning)
+{
+    auto obj = memory::from_handle(handle, is_not_owning);
+    auto num_images = info::get_scalar<CL_IMAGE_ARRAY_SIZE>(handle);
+    return wrap(obj.platform_handle(), obj.context_handle(), handle, num_images, {}, owning);
 }
 
 inline array_t create(

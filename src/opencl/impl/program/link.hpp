@@ -23,6 +23,13 @@ inline link_t wrap(
     return { platform_handle, context_handle, program_handle, succeeded, owning };
 }
 
+inline link_t from_handle(handle_t handle, bool owning)
+{
+    auto prog = program::detail::from_handle(handle, owning);
+    auto succeeded = program::detail::has_succeeded_overall(handle);
+    return wrap(prog.platform_handle(), prog.context_handle(), handle, succeeded, owning);
+}
+
 } // namespace detail
 
 } // namespace link

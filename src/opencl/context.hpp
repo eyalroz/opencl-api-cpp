@@ -19,8 +19,6 @@ namespace detail {
 
 platform::handle_t get_platform_handle(handle_t handle);
 dynarray<device::handle_t> get_device_handles(handle_t handle);
-context_t by_handles(platform::handle_t platform_handle, handle_t handle, bool owning);
-context_t by_handle(handle_t handle, bool owning);
 
 } // namespace detail
 
@@ -30,7 +28,7 @@ context_t wrap(
     handle_t                              handle,
     bool                                  owning) noexcept;
 
-context_t by_handle(handle_t handle, bool owning = false);
+context_t from_handle(handle_t handle, bool owning = false);
 
 context_t create(opencl::device_t device);
 template <template <typename> class Container>

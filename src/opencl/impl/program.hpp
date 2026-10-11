@@ -161,6 +161,13 @@ inline program_t wrap(
     return { platform_handle, context_handle, program_handle, owning };
 }
 
+inline program_t from_handle(handle_t handle, bool owning)
+{
+    auto context_handle = get_context_handle(handle);
+    auto platform_handle = context::detail::get_platform_handle(context_handle);
+    return wrap(platform_handle, context_handle, handle, owning);
+}
+
 inline with_kernels_t wrap_with_kernels(
     platform::handle_t platform_handle,
     context::handle_t context_handle,
@@ -222,6 +229,23 @@ inline dynarray<device::handle_t> get_binary_device_handles(with_binaries_t cons
     // TODO: Do we really not need the number of devices?
     // auto num_devices = info::get_scalar<CL_PROGRAM_NUM_DEVICES>(build_step_result.handle());
     return  info::get_array<CL_PROGRAM_DEVICES>(build_step_result.handle());
+}
+
+inline bool has_succeeded_overall(
+    handle_t const& build_step_result_handle,
+    span<device::handle_t> const& targets)
+{
+    for (auto target : targets) {
+        auto status = info::get_scalar<CL_PROGRAM_BUILD_STATUS>({ build_step_result_handle, target });
+        if (not is_success(status)) { return false; }
+    }
+    return true;
+}
+
+inline bool has_succeeded_overall(handle_t const& build_step_result_handle)
+{
+    auto targets = info::get_array<CL_PROGRAM_DEVICES>(build_step_result_handle);
+    return has_succeeded_overall(build_step_result_handle, targets);
 }
 
 } // namespace detail

@@ -15,7 +15,8 @@ namespace device {
 
 class capabilities_t;
 
-device_t wrap(platform::handle_t, handle_t) noexcept;
+device_t wrap(platform::handle_t platform_handle, handle_t handle) noexcept;
+device_t from_handle(handle_t handle);
 
 synchronized_timestamps_t get_synchronized_time_with(device_t const& device);
 timestamp_t get_host_time_for(device_t const& device);

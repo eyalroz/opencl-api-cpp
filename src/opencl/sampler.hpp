@@ -29,6 +29,8 @@ sampler_t wrap(
     sampler::handle_t   handle,
     bool                owning) noexcept;
 
+sampler_t from_handle(handle_t handle, bool owning = false);
+
 sampler_t create(
     context_t const&  context,
     bool              normalized_coordinates,

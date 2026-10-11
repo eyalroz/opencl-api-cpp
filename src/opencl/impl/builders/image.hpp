@@ -67,7 +67,7 @@ inline opencl::image_t image_t::create()
     spec.layout.pitches = opencl::detail::concretize(layout_.pitches, 0);
     spec.layout.num_mipmap_levels = layout_.num_mipmap_levels.value_or(image::default_mipmap_level_count);
 
-    auto context = context::detail::by_handle(context_handle_, is_not_owning);
+    auto context = context::wrap(platform_handle_, {}, context_handle_, is_not_owning);
 
     auto access_spec = get_access_spec();
 

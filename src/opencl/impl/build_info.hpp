@@ -82,7 +82,7 @@ inline platform_t build_info_t::platform() const noexcept
 
 inline context_t build_info_t::context() const noexcept
 {
-    return context::detail::by_handles(platform_handle_, context_handle_, is_not_owning);
+    return context::wrap(platform_handle_, {}, context_handle_, is_not_owning);
 }
 
 inline program_t build_info_t::program() const noexcept

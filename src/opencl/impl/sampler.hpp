@@ -72,7 +72,14 @@ inline sampler_t wrap(
     sampler::handle_t   handle,
     bool                owning) noexcept
 {
-    return sampler_t{ platform_handle, context_handle, handle, owning };
+    return { platform_handle, context_handle, handle, owning };
+}
+
+inline sampler_t from_handle(handle_t handle, bool owning)
+{
+    auto context_handle = info::get_scalar<CL_SAMPLER_CONTEXT>(handle);
+    auto platform_handle = context::detail::get_platform_handle(context_handle);
+    return wrap(platform_handle, context_handle, handle, owning);
 }
 
 inline sampler_t create(
@@ -94,7 +101,7 @@ inline platform_t sampler_t::platform() const noexcept
 
 inline context_t sampler_t::context() const noexcept
 {
-    return context::detail::by_handles(platform_handle_, context_handle_, is_not_owning);
+    return context::wrap(platform_handle_, {}, context_handle_, is_not_owning);
 }
 
 // methods based on getinfo

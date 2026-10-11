@@ -46,6 +46,14 @@ inline buffer_t wrap(
     return { platform_handle, context_handle, handle, owning };
 }
 
+inline buffer_t from_handle(
+    memory::handle_t   handle,
+    bool               owning)
+{
+    auto obj = memory::from_handle(handle, is_not_owning);
+    return wrap(obj.platform_handle(), obj.context_handle(), handle, owning);
+}
+
 inline buffer_t create(
     context_t const& context,
     size_t size,

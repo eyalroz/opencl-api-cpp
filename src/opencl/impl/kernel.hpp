@@ -67,14 +67,31 @@ OCLW_DEFINE_HANDLE_TRAITS("kernel", kernel::handle_t, clReleaseKernel, clRetainK
 
 namespace kernel {
 
+namespace detail {
+
+inline program::handle_t get_program_handle(handle_t handle)
+{
+    return info::get_scalar<CL_KERNEL_PROGRAM>(handle);
+}
+
+} // namespace detail
+
 inline kernel_t wrap(
     platform::handle_t  platform_handle,
     context::handle_t   context_handle,
     program::handle_t   program_handle,
     handle_t            kernel_handle,
-    bool                is_owning) noexcept
+    bool                owning) noexcept
 {
-    return { platform_handle, context_handle, program_handle, kernel_handle, is_owning };
+    return { platform_handle, context_handle, program_handle, kernel_handle, owning };
+}
+
+inline kernel_t from_handle(handle_t handle, bool owning)
+{
+    auto program_handle = detail::get_program_handle(handle);
+    auto context_handle = program::detail::get_context_handle(program_handle);
+    auto platform_handle = context::detail::get_platform_handle(context_handle);
+    return wrap(platform_handle, context_handle, program_handle, handle, owning);
 }
 
 inline nd_range::dimensions_t nd_range_info_t::global_dimensions() const

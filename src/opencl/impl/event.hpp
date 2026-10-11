@@ -108,6 +108,13 @@ inline user_event_t wrap_user_event(
     return user_event_t { platform_handle, context_handle, handle, owning };
 }
 
+inline user_event_t from_user_event_handle(handle_t handle, bool owning)
+{
+    auto context_handle = detail::get_context_handle(handle);
+    auto platform_handle = context::detail::get_platform_handle(context_handle);
+    return wrap_user_event(platform_handle, context_handle, handle, owning);
+}
+
 inline user_event_t create(context_t const& context)
 {
     auto handle = detail::create(context.handle());

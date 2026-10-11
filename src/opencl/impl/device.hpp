@@ -155,11 +155,23 @@ inline context_t device_t::create_context() const { return context::create(*this
 
 namespace device {
 
-inline device_t wrap(
-    platform::handle_t platform_handle,
-    handle_t   handle) noexcept
+namespace detail {
+
+inline platform::handle_t get_platform_handle(handle_t handle)
+{
+    return info::get_scalar<CL_DEVICE_PLATFORM>(handle);
+}
+
+} // namespace detail
+
+inline device_t wrap(platform::handle_t platform_handle, handle_t handle) noexcept
 {
     return { platform_handle, handle };
+}
+
+inline device_t from_handle(handle_t handle)
+{
+    return wrap(detail::get_platform_handle(handle), handle);
 }
 
 namespace detail {

@@ -36,6 +36,8 @@ compilation_t wrap(
     bool                succeeded,
     bool                owning) noexcept;
 
+compilation_t from_handle(handle_t handle, bool owning = false);
+
 } // namespace compilation
 
 class compilation_t : public build_step_result_t {

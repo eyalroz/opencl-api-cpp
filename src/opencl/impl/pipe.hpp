@@ -61,6 +61,12 @@ inline pipe_t wrap(
     return pipe_t { platform_handle, context_handle, handle, owning };
 }
 
+inline pipe_t from_handle(handle_t handle, bool owning)
+{
+    auto obj = memory::from_handle(handle, is_not_owning);
+    return wrap(obj.platform_handle(), obj.context_handle(), handle, owning);
+}
+
 inline pipe_t create(
     context_t const& context,
     packet_size_t packet_size,
