@@ -15,6 +15,21 @@ namespace opencl {
 
 namespace program {
 
+namespace link {
+
+namespace detail {
+
+link_t wrap(
+    platform::handle_t platform_handle,
+    context::handle_t  context_handle,
+    handle_t           program_handle,
+    bool               succeeded,
+    bool               owning) noexcept;
+
+} // namespace detail
+
+} // namespace link
+
 namespace detail {
 
 // All objects must have the same context
@@ -34,17 +49,12 @@ link_t build_(
 
 class link_t : public with_kernels_t, public build_step_result_t {
 public:
-    friend link_t detail::link_(
-        platform::handle_t                  platform_handle,
-        context::handle_t                   context_handle,
-        span<handle_t const>                objects,
-        span<device::handle_t const>        target_handles,
-        optional_ref<link::options_t const>  options);
-
-    friend link_t detail::build_(
-        program_t const&                    source_or_binary,
-        span<device::handle_t const>        target_handles,
-        optional_ref<build_options_t const> options);
+    friend link_t link::detail::wrap(
+        platform::handle_t platform_handle,
+        context::handle_t  context_handle,
+        handle_t           program_handle,
+        bool               succeeded,
+        bool               owning) noexcept;
 
 protected:
     link_t(

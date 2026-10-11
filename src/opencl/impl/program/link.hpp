@@ -9,6 +9,24 @@ namespace opencl {
 
 namespace program {
 
+namespace link {
+
+namespace detail {
+
+inline link_t wrap(
+    platform::handle_t platform_handle,
+    context::handle_t  context_handle,
+    handle_t           program_handle,
+    bool               succeeded,
+    bool               owning) noexcept
+{
+    return { platform_handle, context_handle, program_handle, succeeded, owning };
+}
+
+} // namespace detail
+
+} // namespace link
+
 namespace detail {
 
 // All objects must have the same context
@@ -29,13 +47,12 @@ inline link_t link_(
         nullptr, nullptr, // no callbacks
         &status);
     throw_if_error_lazy(status, "clLinkProgram", "Linking failed");
-    return link_t {
+    return link::detail::wrap(
         platform_handle,
         context_handle,
         result_handle,
         is_success(status),
-        is_owning
-    };
+        is_owning);
 }
 
 template <template <typename> class ObjectContainer>
@@ -202,13 +219,12 @@ inline link_t build_(
     // A: Because a compiler-reported error is not an error with the compiler or the library or a
     //    inappropriate application of the OpenCL API; it is not an "exceptional" situation, just
     //    a valid possible result.
-    return link_t {
+    return link::detail::wrap(
         source_or_binary.platform_handle(),
         source_or_binary.context_handle(),
         source_or_binary.handle(),
         is_success(status),
-        is_not_owning
-    };
+        is_not_owning);
 }
 
 } // namespace detail

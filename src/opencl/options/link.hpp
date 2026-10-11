@@ -15,7 +15,7 @@ namespace program {
 namespace link {
 struct options_t : common_options_t {
 public:
-    std::string render() const { return detail::render(*this); }
+    std::string render() const { return program::detail::render(*this); }
     // SPIR Compilation Options
 
 #ifdef CL_KHR_SPIR_EXTENSION_VERSION
