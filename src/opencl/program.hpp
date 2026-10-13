@@ -188,7 +188,7 @@ class with_intermediate_language_t : public virtual program_t {
         platform::handle_t, context::handle_t, handle_t, bool) noexcept;
 
 public:
-    string_view intermediate_language() const;
+    std::string intermediate_language() const;
 };
 
 struct binary_t {

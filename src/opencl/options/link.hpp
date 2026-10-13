@@ -8,6 +8,7 @@
 #define OPENCL_OPTIONS_LINK_HPP_
 
 #include "common.hpp"
+#include "../version.hpp"
 
 namespace opencl {
 namespace program {

@@ -8,6 +8,8 @@
 #define OPENCL_OPTIONS_COMPILATION_HPP_
 
 #include "common.hpp"
+#include "../version.hpp"
+
 #include <unordered_set>
 #include <unordered_map>
 

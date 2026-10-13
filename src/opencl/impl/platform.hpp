@@ -6,6 +6,7 @@
 #include "../platform.hpp"
 #include "../error.hpp"
 #include "../util/dynarray.hpp"
+#include "../version.hpp"
 
 #include <algorithm>
 
