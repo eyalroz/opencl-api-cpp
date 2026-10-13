@@ -472,10 +472,6 @@ inline queue::event_t copy(
     return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
-
-template <typename T>
-using is_buffer_builder = std::is_same<opencl::detail::remove_cvref_t<T>, builders::buffer_t>;
-
 } // namespace detail
 
 // Function should cover as many kinds of copying, and
@@ -486,8 +482,8 @@ queue::event_t copy(Source&& source, Destination&& destination, queue_t const& q
 {
     // This function would be soooo much easier with C++17 :-(
 
-    static_assert(not detail::is_buffer_builder<Source>::value, "Source is a buffer builder; try a buffer instead");
-    static_assert(not detail::is_buffer_builder<Destination>::value, "Destination is a buffer builder; try a buffer instead");
+    static_assert(not opencl::detail::is_buffer_builder<Source>::value, "Source is a buffer builder; try a buffer instead");
+    static_assert(not opencl::detail::is_buffer_builder<Destination>::value, "Destination is a buffer builder; try a buffer instead");
     constexpr auto source_kind = detail::kind_of<Source>();
     constexpr auto destination_kind = detail::kind_of<Destination>();
     static_assert(source_kind != detail::kind_t::unknown, "Unsupported copy source type");

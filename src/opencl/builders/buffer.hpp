@@ -39,6 +39,13 @@ inline buffer_t buffer() { return {}; }
 
 } // namespace builders
 
+namespace detail {
+
+template <typename T>
+using is_buffer_builder = std::is_same<remove_cvref_t<T>, builders::buffer_t>;
+
+} // namespace detail
+
 } // namespace opencl
 
 #endif // OPENCL_WRAPPERS_BUILDERS_BUFFER_HPP_
