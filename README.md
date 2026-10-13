@@ -22,7 +22,7 @@ This is a header-only library of C++ bindings/wrappers for the [C-language API](
 
 It is an *unofficial* alternative to the [Khronos Consortium](https://www.khronos.org)'s own [CLHPP](https://github.com/KhronosGroup/OpenCL-CLHPP) C++ bindings. It is intended to make working with OpenCL be less error-prone, more intuitive and consistent (both to write and read), and requiring less memorizing and less familiarity with idiosyncracies. This is achieved by using modern C++ language capabilities, programming idioms and recommended practices; see [Motivation](#motivation) below for details.
 
-Note: It is not the library's intention for users to write "higher-level" or more "abstract" code; these bindings are merely a modern-C++-arrangement of the OpenCL API itself.
+*Note*: It is not the library's intention for users to write "higher-level" or more "abstract" code; these bindings are merely a modern-C++-arrangement of the OpenCL API itself.
 
 ### Key features
 
@@ -32,7 +32,7 @@ This library is characterized by:
 - **proxy/wrapper objects** for devices, queues, events, kernels, contexts, programs of various kinds etc. - all using the [RAII/CADRe](http://en.cppreference.com/w/cpp/language/raii) convention: Resources are obtained on construction,m and released on destruction. No need to check whether your object is in a "disengaged" or "uninitialized" state, nor to remember to initialize and release/free yourself.
 - Methods and **functions return what they produce**, since they don't need to return a status code. No more having to pre-allocate result variables and pass pointers to them as out-parameters. Better compositionality!
 - All functions and methods throw **informative exceptions** on failure, which carry not just the status code, but also the name of the failing C-API function name and some contextual information.
-- You can **forget about numeric IDs and handles**; the proxy classes will fit everywhere **... or access them if you need to**, either using detail-implementation functions of the library, or for compatibility of other OpenCL-related code.
+- You can **forget about numeric IDs and handles**; the proxy classes will fit everywhere **... or access them if you want to**, either using detail-implementation functions of the library, or for compatibility of other OpenCL-related code.
 - With C++11 type deduction, you'll likely have **little need to worry/think about types**: What you obtain can be passed on to just like you might imagine; and if you've got it wrong - you'll get an informative error message. So, you may not even need to memorize the wrapper object type names for platforms, contexts, devices, kernels etc.
 - Multiple **convenience methods and operators** so that you don't have to apply the Voodoo of OpenCL `getInfo()`mechanisms to get the attributes of your objects.
 - Speaking of convenience, the library foregoes a multitude of complex constructors in favor of **named constructor idioms**, expressing intent more clearly and limiting the sets of necessary parameters.
@@ -283,7 +283,7 @@ if (not build_result.succeeded()) {
   for (auto const& target_build_info : build_result.info()) {
     auto target = target_build_info.device();
     std::cerr << "Build log for device " << target.name() << ":\n\n";
-    std::cerr << target_build_info.log()<< std::endl;
+    std::cerr << target_build_info.log() << std::endl;
   }
   exit(EXIT_FAILURE);
 }
@@ -300,7 +300,7 @@ Some points to note here:
 * All actually-exceptional situations are checked for and reported; this is unlike the example program, with which things get messy in case of `CL_OUT_OF_HOST_MEMORY` or `CL_COMPILER_NOT_AVAILABLE` or other such errors.
 * The use of compiler options is more verbose than the CLHPP example program. However - you do not need to know the JIT compiler's command-line syntax and switch names. The compiler options are well-structured and you can query them and change them quite conveniently without resorting to string parsing.
 * The example program iterates over the per-target-device build info, and we mirror this. Instead, one can loop over the targets - which are `context.devices()` when we don't specify targets explicitly; doing so, we could then obtain individual target build info with `build_result.info_for(target_device)`;
-* CLHPP's buildInfo is a cryptic pair which is difficult to figure out; without our library - you just don't have to.
+* The `buildInfo` variable we get in the CLHPP example is an `std::pair`. Using pairs rather than custom structures makes it difficult to figure out what each field is suposed to mean... with this library - you don't have to memorize this information.
 * No need to choose the "correct" container type and construct it explicitly (our code shows the use of `std::initializer_lists`'s).
 
 
