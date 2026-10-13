@@ -355,4 +355,10 @@ inline device::index_t device_t::index_in_platform() const
 
 } // namespace opencl
 
+template<> struct std::hash<opencl::device_t> {
+    std::size_t operator()(opencl::device_t const& device) const noexcept {
+        return std::hash<opencl::device::handle_t>{}(device.handle());
+    }
+};
+
 #endif // OPENCL_WRAPPERS_IMPL_DEVICE_HPP_

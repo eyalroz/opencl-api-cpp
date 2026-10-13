@@ -167,11 +167,7 @@ bool has_kernels(program_t const& program);
 } // namespace opencl
 
 // We need this specialization to use device_t's as unordered_map keys
-template<> struct std::hash<opencl::device_t> {
-    std::size_t operator()(opencl::device_t const& device) const noexcept {
-        return std::hash<opencl::device::handle_t>{}(device.handle());
-    }
-};
+template<> struct std::hash<opencl::device_t>;
 
 namespace opencl {
 
