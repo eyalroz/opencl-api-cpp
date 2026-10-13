@@ -186,7 +186,7 @@ context_t create(Container<opencl::device_t> const& devices)
     return wrap(shared_common_platform_handle,std::move(dev_handles), handle, is_owning);
 }
 
-inline context_t create(opencl::device_t device)
+inline context_t create(opencl::device_t const& device)
 {
     auto device_handle = device.handle();
     auto single_handle = span<opencl::device::handle_t>{ &device_handle, 1};

@@ -30,7 +30,7 @@ context_t wrap(
 
 context_t from_handle(handle_t handle, bool owning = false);
 
-context_t create(opencl::device_t device);
+context_t create(opencl::device_t const& device);
 template <template <typename> class Container>
 context_t create(Container<opencl::device_t> const& devices);
 /// Create a context with all devices (possibly of a given type) on a given platform
