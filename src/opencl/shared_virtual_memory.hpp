@@ -15,6 +15,7 @@
 #ifdef CL_VERSION_2_0
 
 #include "types.hpp"
+#include "util/region.hpp"
 
 namespace opencl {
 

@@ -4,6 +4,9 @@
 
 #include "../device_capabilities.hpp"
 #include "../identify.hpp"
+#include "../device.hpp"
+
+#include <sstream>
 
 namespace opencl {
 

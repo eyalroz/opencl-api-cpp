@@ -10,6 +10,7 @@
 
 #include "types.hpp"
 #include "context.hpp"
+#include "device.hpp"
 
 #include <future>
 

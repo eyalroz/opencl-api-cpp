@@ -3,8 +3,9 @@
 #define OPENCL_WRAPPERS_IMPL_MEMORY_OBJECT_HPP_
 
 #include "context.hpp"
-#include "../memory_object.hpp"
+#include "memory.hpp"
 #include "info.hpp"
+#include "../memory_object.hpp"
 
 namespace opencl {
 

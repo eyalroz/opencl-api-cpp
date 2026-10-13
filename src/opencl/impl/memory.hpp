@@ -3,9 +3,11 @@
 #define OPENCL_WRAPPERS_IMPL_MEMORY_HPP_
 
 #include "miscellany.hpp"
+#include "info.hpp"
 #include "../identify.hpp"
 #include "../image.hpp"
 #include "../memory.hpp"
+#include "../event.hpp"
 #include "../shared_virtual_memory.hpp"
 #include "../builders/buffer.hpp"
 #include "../util/mpark_variant.hpp"

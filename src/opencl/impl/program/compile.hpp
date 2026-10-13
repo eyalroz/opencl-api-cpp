@@ -2,6 +2,8 @@
 #ifndef OPENCL_WRAPPERS_IMPL_PROGRAM_COMPILE_HPP_
 #define OPENCL_WRAPPERS_IMPL_PROGRAM_COMPILE_HPP_
 
+#include "../../program/compile.hpp"
+#include "../miscellany.hpp"
 #include "../program.hpp"
 
 namespace opencl {

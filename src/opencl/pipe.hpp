@@ -8,6 +8,7 @@
 #define OPENCL_WRAPPERS_PIPE_HPP_
 
 #include "types.hpp"
+#include "memory_object.hpp"
 
 namespace opencl {
 

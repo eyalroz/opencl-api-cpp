@@ -2,6 +2,7 @@
 #define OPENCL_WRAPPERS_BUILDERS_LAUNCH_CONFIG_HPP_
 
 #include "../types.hpp"
+#include "../device.hpp"
 
 namespace opencl {
 

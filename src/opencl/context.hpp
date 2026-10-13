@@ -7,7 +7,6 @@
 #ifndef OPENCL_WRAPPERS_CONTEXT_HPP_
 #define OPENCL_WRAPPERS_CONTEXT_HPP_
 
-#include "buffer.hpp"
 #include "types.hpp"
 #include "util/optional.hpp"
 

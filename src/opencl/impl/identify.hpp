@@ -8,7 +8,6 @@
 #ifndef OPENCL_WRAPPERS_IMPL_IDENTIFY_HPP_
 #define OPENCL_WRAPPERS_IMPL_IDENTIFY_HPP_
 
-#include "../identify.hpp"
 #include "device.hpp"
 #include "platform.hpp"
 #include "queue.hpp"
@@ -16,6 +15,8 @@
 #include "kernel.hpp"
 #include "program.hpp"
 #include "info.hpp"
+#include "../identify.hpp"
+#include "../pipe.hpp"
 
 namespace opencl {
 namespace device {

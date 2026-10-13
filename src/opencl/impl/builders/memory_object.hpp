@@ -4,6 +4,7 @@
 
 #include "../../builders/memory_object.hpp"
 #include "../../context.hpp"
+#include "../memory_object.hpp"
 
 namespace opencl {
 

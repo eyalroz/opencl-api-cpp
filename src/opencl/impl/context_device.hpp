@@ -4,6 +4,10 @@
 
 #include "../context_device.hpp"
 #include "../identify.hpp"
+#include "../queue.hpp"
+#include "../error.hpp"
+#include "../buffer.hpp"
+#include "../context.hpp"
 
 namespace opencl {
 

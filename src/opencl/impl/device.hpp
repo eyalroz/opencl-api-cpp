@@ -6,6 +6,7 @@
 #include "../platform.hpp"
 #include "../device.hpp"
 #include "../device_capabilities.hpp"
+#include "../context_device.hpp"
 #include "info.hpp"
 #include "platform.hpp"
 #include "opencl/util/mpark_variant.hpp"

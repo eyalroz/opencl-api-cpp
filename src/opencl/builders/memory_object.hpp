@@ -8,6 +8,7 @@
 // CL_MEM_DEVICE_PRIVATE_ADDRESS_EXT  if cl_ext_buffer_device_address
 
 #include "../types.hpp"
+#include "../memory_object.hpp"
 
 namespace opencl {
 

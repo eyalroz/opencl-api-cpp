@@ -8,8 +8,9 @@
 #define OPENCL_WRAPPERS_IMAGE_HPP_
 
 #include "types.hpp"
-#include "impl/memory_object.hpp"
+#include "memory_object.hpp"
 #include "util/optional.hpp"
+#include "util/optional_ref.hpp"
 
 namespace opencl {
 

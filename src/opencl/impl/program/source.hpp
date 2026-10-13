@@ -2,6 +2,12 @@
 #ifndef OPENCL_WRAPPERS_IMPL_PROGRAM_SOURCE_HPP_
 #define OPENCL_WRAPPERS_IMPL_PROGRAM_SOURCE_HPP_
 
+#include "../../identify.hpp"
+#include "../../error.hpp"
+#include "../../util/miscellany.hpp"
+#include "../../program/source.hpp"
+#include "../../program/compile.hpp"
+#include "../../program/link.hpp"
 #include "../../program.hpp"
 
 namespace opencl {

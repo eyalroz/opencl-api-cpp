@@ -4,12 +4,12 @@
 
 #include "shared_virtual_memory.hpp"
 #include "launch.hpp"
+#include "image.hpp"
 #include "memory_object.hpp"
 
 #include "../queue.hpp"
 #include "../context.hpp"
 #include "../context_device.hpp"
-#include "../image.hpp"
 
 #ifndef NDEBUG
 #include <algorithm>

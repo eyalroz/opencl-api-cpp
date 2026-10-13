@@ -2,8 +2,12 @@
 #ifndef OPENCL_WRAPPERS_IMPL_PROGRAM_LINK_HPP_
 #define OPENCL_WRAPPERS_IMPL_PROGRAM_LINK_HPP_
 
-#include "../program.hpp"
+#include "../../program/link.hpp"
+#include "../../program/compile.hpp"
+#include "../../options/link.hpp"
+#include "../identify.hpp"
 #include "../miscellany.hpp"
+#include "../program.hpp"
 
 namespace opencl {
 

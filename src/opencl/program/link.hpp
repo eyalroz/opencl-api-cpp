@@ -10,6 +10,7 @@
 #define OPENCL_WRAPPERS_PROGRAM_LINK_HPP_
 
 #include "../program.hpp"
+#include "../util/optional_ref.hpp"
 
 namespace opencl {
 

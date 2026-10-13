@@ -2,8 +2,10 @@
 #ifndef OPENCL_WRAPPERS_IMPL_SAMPLER_HPP_
 #define OPENCL_WRAPPERS_IMPL_SAMPLER_HPP_
 
+#include "info.hpp"
+#include "../platform.hpp"
+#include "../context.hpp"
 #include "../sampler.hpp"
-#include "../identify.hpp"
 
 namespace opencl {
 

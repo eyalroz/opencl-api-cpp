@@ -2,12 +2,15 @@
 #ifndef OPENCL_WRAPPERS_IMPL_PROGRAM_HPP_
 #define OPENCL_WRAPPERS_IMPL_PROGRAM_HPP_
 
+#include "ownership_token_t.hpp"
+#include "miscellany.hpp"
+#include "device.hpp" // for the std::hash specialization
 #include "../program.hpp"
 #include "../options/compilation.hpp"
 #include "../kernel.hpp"
-#include "ownership_token_t.hpp"
 #include "../util/miscellany.hpp"
-#include "miscellany.hpp"
+#include "../build_info.hpp"
+#include "../program/source.hpp"
 
 namespace opencl {
 

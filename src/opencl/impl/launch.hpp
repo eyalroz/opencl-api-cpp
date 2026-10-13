@@ -2,7 +2,10 @@
 #define OPENCL_WRAPPERS_IMPL_LAUNCH_HPP_
 
 #include "../identify.hpp"
+#include "../error.hpp"
 #include "../queue.hpp"
+#include "../kernel.hpp"
+#include "../event.hpp"
 
 namespace opencl {
 

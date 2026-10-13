@@ -2,10 +2,11 @@
 #ifndef OPENCL_WRAPPERS_IMPL_SHARED_VIRTUAL_MEMORY_HPP_
 #define OPENCL_WRAPPERS_IMPL_SHARED_VIRTUAL_MEMORY_HPP_
 
+#include "memory.hpp"
+#include "memory_object.hpp"
 #include "../shared_virtual_memory.hpp"
 #include "../context.hpp"
 #include "../event.hpp"
-#include "memory_object.hpp"
 
 namespace opencl {
 namespace memory {

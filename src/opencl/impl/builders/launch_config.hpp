@@ -8,6 +8,9 @@
 #endif
 
 #include "../../builders/launch_config.hpp"
+#include "../../impl/launch_config.hpp"
+#include "../../impl/types.hpp"
+#include "../../platform.hpp"
 
 #include <limits>
 #include <string>

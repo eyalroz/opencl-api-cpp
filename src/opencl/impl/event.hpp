@@ -2,10 +2,13 @@
 #ifndef OPENCL_WRAPPERS_IMPL_EVENT_HPP_
 #define OPENCL_WRAPPERS_IMPL_EVENT_HPP_
 
+#include "info.hpp"
+#include "miscellany.hpp"
+#include "../platform.hpp"
 #include "../event.hpp"
 #include "../queue.hpp"
 #include "../context.hpp"
-#include "ownership_token_t.hpp"
+#include "../context_device.hpp"
 
 #ifndef NDEBUG
 #endif

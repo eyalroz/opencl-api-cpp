@@ -12,6 +12,7 @@
 
 #include "../types.hpp"
 #include "../identify.hpp"
+#include "../error.hpp"
 
 #ifndef STRINGIFY
 #define STRINGIFY(_q) #_q

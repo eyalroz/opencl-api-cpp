@@ -2,14 +2,15 @@
 #ifndef OPENCL_WRAPPERS_IMPL_CONTEXT_HPP_
 #define OPENCL_WRAPPERS_IMPL_CONTEXT_HPP_
 
-#include "device.hpp"
+#include "platform.hpp"
+#include "info.hpp"
+#include "../device.hpp"
 #include "../context.hpp"
 #include "../buffer.hpp"
 #include "../context_device.hpp"
 #include "../sampler.hpp"
 #include "../shared_virtual_memory.hpp"
-#include "platform.hpp"
-#include "info.hpp"
+#include "../queue.hpp"
 
 #ifndef NDEBUG
 #include <algorithm>

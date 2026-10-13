@@ -3,6 +3,7 @@
 #define OPENCL_WRAPPERS_IMPL_TYPES_HPP_
 
 #include "../types.hpp"
+#include "../error.hpp"
 #include "../util/miscellany.hpp"
 
 namespace opencl {

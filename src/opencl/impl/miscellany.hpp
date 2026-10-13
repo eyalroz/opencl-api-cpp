@@ -1,6 +1,8 @@
 #ifndef OPENCL_WRAPPERS_IMPL_MISCELLANY_HPP_
 #define OPENCL_WRAPPERS_IMPL_MISCELLANY_HPP_
 
+#include "../util/dynarray.hpp"
+
 #include <algorithm>
 
 namespace opencl {

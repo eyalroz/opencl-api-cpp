@@ -1,10 +1,13 @@
 #ifndef OPENCL_WRAPPERS_IMPL_INFO_HPP
 #define OPENCL_WRAPPERS_IMPL_INFO_HPP
 
-#include <CL/cl.h>
-
 #include "types.hpp"
+#include "../identify.hpp"
+#include "../error.hpp"
+
 #include "../util/miscellany.hpp"
+
+#include <CL/cl.h>
 
 namespace opencl {
 

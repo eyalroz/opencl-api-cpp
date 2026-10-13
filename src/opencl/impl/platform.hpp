@@ -7,8 +7,10 @@
 #include "../error.hpp"
 #include "../util/dynarray.hpp"
 #include "../version.hpp"
+#include "../context.hpp"
 
 #include <algorithm>
+#include <sstream>
 
 namespace opencl {
 
