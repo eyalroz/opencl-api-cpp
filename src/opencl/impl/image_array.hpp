@@ -53,6 +53,25 @@ inline array_t create(
 
 } // namespace array
 
+inline array_t::array_t(
+    platform::handle_t platform_handle,
+    context::handle_t  context_handle,
+    memory::handle_t   handle,
+    size_t             num_images,
+    optional<spec_t>   constituent_image_spec,
+    bool               owning) NOEXCEPT_IF_NDEBUG
+    : parent_type(platform_handle, context_handle, handle, owning), num_images_(num_images),
+        constituent_image_spec_(std::move(constituent_image_spec))
+{
+#ifndef NDEBUG
+    auto raw_type = memory::detail::raw_type_of(handle);
+    if (not memory::detail::is_image_array(handle)) {
+        throw std::invalid_argument("Attempt to construct a image array object using a"
+            "raw memory object of type " + std::string{memory::detail::name_of(raw_type)});
+    }
+#endif
+}
+
 inline spec_t const& array_t::constituent_image_spec() const
 {
     if (not constituent_image_spec_) {

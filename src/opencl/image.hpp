@@ -196,17 +196,7 @@ public:
         context::handle_t        context_handle,
         memory::handle_t         handle,
         optional<image::spec_t>  spec,
-        bool                     owning) NOEXCEPT_IF_NDEBUG
-    : parent_type(platform_handle, context_handle, handle, owning), spec_(std::move(spec))
-    {
-#ifndef NDEBUG
-        auto raw_type = memory::detail::raw_type_of(handle);
-        if (not memory::detail::is_image(handle)) {
-            throw std::invalid_argument("Attempt to construct a (non-array) image wrapper object using a"
-                "raw memory object of type " + std::string{memory::detail::name_of(raw_type)});
-        }
-#endif
-    }
+        bool                     owning) NOEXCEPT_IF_NDEBUG;
 
     image::spec_t const& spec() const;
     image::layout_t const& layout() const { return spec().layout; }

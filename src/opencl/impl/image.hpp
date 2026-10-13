@@ -549,6 +549,23 @@ inline spec_t get_spec(handle_t handle)
 
 } // namespace image
 
+inline image_t::image_t(
+    platform::handle_t       platform_handle,
+    context::handle_t        context_handle,
+    memory::handle_t         handle,
+    optional<image::spec_t>  spec,
+    bool                     owning) NOEXCEPT_IF_NDEBUG
+: parent_type(platform_handle, context_handle, handle, owning), spec_(std::move(spec))
+{
+#ifndef NDEBUG
+    auto raw_type = memory::detail::raw_type_of(handle);
+    if (not memory::detail::is_image(handle)) {
+        throw std::invalid_argument("Attempt to construct a (non-array) image wrapper object using a"
+            "raw memory object of type " + std::string{memory::detail::name_of(raw_type)});
+    }
+#endif
+}
+
 inline image::spec_t const& image_t::spec() const
 {
     if (not spec_) {
