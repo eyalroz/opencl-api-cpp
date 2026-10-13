@@ -508,7 +508,7 @@ inline with_intermediate_language_t create_with_intermediate_language(
     return with_intermediate_language_t { context.platform_handle(), context.handle(), program_handle, is_owning };
 }
 
-inline string_view with_intermediate_language_t::intermediate_language() const
+inline std::string with_intermediate_language_t::intermediate_language() const
 {
     return info::get_string<CL_PROGRAM_IL>(handle_);
 }
