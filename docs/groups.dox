@@ -1,0 +1,54 @@
+/**
+ * @defgroup ncis Named constructor idioms for OpenCL entities
+ *
+ * This library represents most significant OpenCL entities by an object class - devices, context,
+ * events, kernels etc. In the C OpenCL API, such entities are created or allocate using one or
+ * more function calls, often with multiple combinations of options and argument choices which
+ * control the nature or behavior of the created entity. Thus, there should be multiple ways
+ * of constructing this library's corresponding objects. However - we wish to avoid the tragedy
+ * of classes like std::vector, which have so many constructors, with different meanings, that
+ * it may be difficult to tell them apart when one sees their use; and, in fact, there is a
+ * chance of accidentally triggering one kind of constructor instead of another, due to
+ * implicit conversion or type deduction. Moreover, we wish to avoid accidental OpenCL C API
+ * calls, which may well happen if they were made in our classes' single-parameter constructors
+ * (especially copy and move).
+ *
+ * To avoid such a state affairs we have decided to force the user to be explicit about how they
+ * want to construct an object: The constructor is protected, and the user must spell out which
+ * kind of construction they want, by calling a named constructor idiom: It could be a plain
+ * `create()`, but might also be `create_using()`, `create_copy_of()`, or also `wrap()` or
+ * `from_handle()`, both of which do not actuall create anying (see @ref nci_wrap and
+ * @ref nci_from_handle ).
+ */
+
+/// @addtogroup ncis
+/// @{
+/**
+ * @defgroup nci_wrap wrap() constructor idioms
+ *
+ * This library's wrapper classes do not only hold their OpenCL entity's handle (e.g.
+ * `cl_command_queue` `cl_context`, `cl_kernel` etc.) but also typically hold some
+ * additional information, e.g. the handle of the containing context, the platform
+ * in which that context exists, and possibly more.
+ *
+ * If we have both a handle and the necessary extra information, we can construct a wrapper
+ * object safely, with no OpenCL C API calls, and no chance of error or exception - using one
+ * of the `wrap()` function in the appropriate namespace, e.g.: `queue::wrap()`,
+ * `context::wrap()`, `kernel::wrap()`. If we only have the handle - we can use a `from_handle()`
+ * function (see {@ref nci_from_handle}).
+ */
+
+/**
+ * @defgroup nci_from_handle `from_handle()` constructor idioms
+ *
+ * Many OpenCL entities are represented by handles, such as: `cl_command_queue` `cl_context`,
+ * `cl_kernel` etc. These values are the crux, or the kernel (punned term, sorry)
+ * of instances of this library's wrapper classes, like {@ref queue_t}, {@ref context_t},
+ * @ref kernel_t etc. However - the wrapper classes are constructed with some additional
+ * information (e.g. about the platform or context). When we lack this extra information
+ * and only have the handle, yet still want to construct an instance of the wrapper class -
+ * we use the `from_handle()` named constructor idiom in the appropriate namespace, e.g.:
+ * `queue::from_handle()`, `context::from_handle()`, `kernel::from_handle()`.
+ */
+
+/// @}
