@@ -20,12 +20,28 @@ namespace buffer {
 using memory::host_and_kernel_access_t;
 using memory::full_access;
 
+/**
+ * Wrap a raw OpenCL API buffer handle in a @ref buffer_t object, possibly specifying
+ * its context and the platform it exists on.
+ *
+ * @ingroup nci_wrap
+ *
+ * @param handle this _must_ be a valid (non-released) handle of an OpenCL buffer,
+ *     even though its type is common with the handles of all other OpenCL memory
+ *     objects.
+ * @param owning if true, the created @ref buffer_t will own the handle, and will
+ *     release have the OpenCL driver release the buffer on destruction. Otherwise,
+ *     the returned @ref buffer_t will be a non-owning reference-type objects - for
+ *     convenient use, but which will do nothing on destruction; and it will assume
+ *     the handle'svalidity outlives it.
+ */
 buffer_t wrap(
     platform::handle_t platform_handle,
     context::handle_t  context_handle,
     memory::handle_t   handle,
     bool               owning) noexcept;
 
+/// @ingroup nci_from_handle
 buffer_t from_handle(handle_t handle, bool owning = false);
 
 buffer_t create(
