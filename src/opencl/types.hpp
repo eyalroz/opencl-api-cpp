@@ -139,6 +139,10 @@ namespace memory  { using device_address_t = cl_mem_device_address_ext; }
 // Forward declarations
 
 struct version_t;
+#if CL_VERSION_3_0
+struct name_and_version_t;
+namespace version { using named_t = name_and_version_t; }
+#endif
 class platform_t;
 class device_t;
 class buffer_t;
