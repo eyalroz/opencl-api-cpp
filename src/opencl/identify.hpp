@@ -78,9 +78,9 @@ std::string identify(device_t const&);
 } // namespace device
 } // namespace context
 
-
 namespace memory {
 namespace detail {
+std::string identify(subregion_spec_t subregion_spec);
 std::string identify(region_t region);
 } // namespace detail
 

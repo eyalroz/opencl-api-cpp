@@ -3,7 +3,7 @@
 #define OPENCL_WRAPPERS_IMPL_SAMPLER_HPP_
 
 #include "../sampler.hpp"
-#include "identify.hpp"
+#include "../identify.hpp"
 
 namespace opencl {
 

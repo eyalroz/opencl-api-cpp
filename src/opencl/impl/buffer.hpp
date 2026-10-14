@@ -3,7 +3,7 @@
 #define OPENCL_WRAPPERS_IMPL_BUFFER_HPP_
 
 #include "../buffer.hpp"
-#include "identify.hpp"
+#include "../identify.hpp"
 #include "memory_object.hpp"
 
 namespace opencl {
