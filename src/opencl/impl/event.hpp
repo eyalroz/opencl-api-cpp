@@ -87,8 +87,6 @@ namespace event {
 
 namespace detail {
 
-using queue::event::detail::wrap_by_queue;
-
 inline handle_t create(context::handle_t context_handle)
 {
     status_t status;

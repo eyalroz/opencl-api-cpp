@@ -219,7 +219,7 @@ inline queue::event_t enqueue_primed_kernel_launch(
         &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueNDRangeKernel", "Enqueueing " + opencl::detail::identify(kernel)
         + " on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
 template<class...Args>

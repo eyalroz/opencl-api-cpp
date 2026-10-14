@@ -178,7 +178,7 @@ queue::event_t enqueue_native_kernel_launch(
         &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueNativeKernel",
         "Failed enqueueing a native kernel on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
 template <
@@ -222,7 +222,7 @@ queue::event_t queue_t::enqueue_pure_host_invokable(Invokable& invokable) const
         no_events.size(), no_events.data(),
         &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueNativeKernel", "Enqueuing a purely native, non-OpenCL-related function");
-    return event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
 }
 
 inline std::pair<queue::event_t, memory::region_t>
@@ -243,7 +243,7 @@ map(buffer_t const& buffer, memory::mapping::spec_t const& spec, queue_t const& 
     throw_if_error_lazy(status, "clEnqueueMapBuffer", "Mapping " + opencl::detail::identify(buffer)
             + "to host memory on " + opencl::detail::identify(queue));
     return {
-        event::detail::wrap_by_queue(result_event_handle, queue, is_owning),
+        queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning),
         memory::region_t { mapping_ptr, spec.subregion->size }
     };
 }
@@ -274,7 +274,7 @@ inline queue::event_t unmap(memory::object_t const& memory_object, void* mapping
         queue.handle(),  memory_object.handle(), mapping,
         no_events.size(), no_events.data(), &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueUnmapMemObject", "Unmapping " + detail::identify(memory_object));
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
 inline queue::event_t queue_t::enqueue_unmap(memory::object_t const& memory_object, void* mapping) const
@@ -300,7 +300,7 @@ map(image_t const& image, image::mapping::spec_t const& spec, queue_t const& que
         &status) CL_API_SUFFIX__VERSION_1_0;
     throw_if_error_lazy(status, "clEnqueueMapImage", "");
     auto mapping = memory::region_t { mapping_ptr, image.size_in_bytes() };
-    return std::make_pair(event::detail::wrap_by_queue(event_handle, queue, is_owning), mapping );
+    return std::make_pair(queue::event::detail::wrap_by_queue(event_handle, queue, is_owning), mapping );
 }
 
 inline std::pair<queue::event_t, memory::region_t>
@@ -324,7 +324,7 @@ queue::event_t enqueue_marker(queue_t const& queue, EventContainer&& events)
     throw_if_error_lazy(status, "clEnqueueMarkerWithWaitList",
         "Enqueueing a marker for the conclusion of " + std::to_string(event_handles.size())
         + "events on " + detail::identify(queue));
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
 template <typename EventContainer>
@@ -347,7 +347,7 @@ queue::event_t enqueue_barrier(queue_t const& queue, EventContainer&& events)
         "Enqueueing a barrier operation (" +
         (event_handles.empty() ? "without waiting for " : " and waiting for " + std::to_string(event_handles.size()))
         + "events on " + detail::identify(queue));
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
 inline queue::event_t queue_t::enqueue_barrier() const
@@ -374,7 +374,7 @@ event_t enqueue_acquire_external_memory(queue_t const& queue, Container const& m
         &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueAcquireExternalMemObjectsKHR", "Enqueueing acquisition of "
         + std::to_string(memory_object_handles.size) + " on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
 template <typename Container>
@@ -398,7 +398,7 @@ event_t enqueue_release_external_memory(queue_t queue, Container const& memory_o
             "Scheduling the release of " + std::to_string(memory_object_handles.size())
             + " external memory objects on" + opencl::detail::identify(queue));
     }
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
 inline queue_t from_handle(handle_t handle, bool owning = false)
@@ -431,7 +431,7 @@ queue::event_t queue_t::enqueue_release_external_memory(Container const& memory_
 inline queue::event_t queue_t::enqueue_free(void* ptr) const
 {
     auto new_event_handle = memory::shared_virtual::detail::free(handle(), ptr);
-    return event::detail::wrap_by_queue(new_event_handle, *this, is_owning);
+    return queue::event::detail::wrap_by_queue(new_event_handle, *this, is_owning);
 }
 
 inline queue::event_t queue_t::enqueue_free(memory::region_t region) const
@@ -457,7 +457,7 @@ inline queue::event_t queue_t::enqueue_free(memory::shared_virtual::region_t svm
         &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueSVMFree", "Failed enqueuing a free of "
         + memory::shared_virtual::detail::identify_region(svm_region) + " on " + detail::identify(*this));
-    return event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
 }
 
 inline queue::event_t queue_t::enqueue_map(memory::shared_virtual::region_t svm_region, memory::mapping::kind_t kind) const
@@ -477,7 +477,7 @@ inline queue::event_t queue_t::enqueue_map(memory::shared_virtual::region_t svm_
     throw_if_error_lazy(status, "clEnqueueSVMMap", "Failed enqueuing a mapping of "
         + memory::shared_virtual::detail::identify_region(svm_region) + " for host access on "
         + detail::identify(*this));
-    return event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
 }
 
 inline queue::event_t queue_t::enqueue_map(memory::shared_virtual::region_t svm_region, memory::mapping::spec_t spec) const
@@ -500,7 +500,7 @@ inline queue::event_t queue_t::enqueue_unmap(memory::shared_virtual::region_t sv
     throw_if_error_lazy(status, "clEnqueueSVMUnmap", "Failed enqueuing an unmap of "
         + memory::shared_virtual::detail::identify_region(svm_region) + " for host access on "
         + detail::identify(*this));
-    return event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
 }
 
 inline queue::event_t queue_t::enqueue_fill(memory::shared_virtual::region_t svm_region, memory::region_t pattern) const
@@ -519,7 +519,7 @@ inline queue::event_t queue_t::enqueue_fill(memory::shared_virtual::region_t svm
     throw_if_error_lazy(status, "clEnqueueSVMMemFill", "Failed enqueuing a memory fill of "
         + memory::shared_virtual::detail::identify_region(svm_region) + " on "
         + detail::identify(*this));
-    return event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
 }
 
 template <typename T>
@@ -541,7 +541,7 @@ inline queue::event_t queue_t::enqueue_fill(image_t const& image, image::box_spe
     // TODO: Consider saying something about the box. ALso, if the error regards exceeding image dimensions,
     // we could identify this and report the relevant error.
     throw_if_error_lazy(status, "clEnqueueFillImage", "");
-    return event::detail::wrap_by_queue(event_handle, *this, is_owning);
+    return queue::event::detail::wrap_by_queue(event_handle, *this, is_owning);
 }
 
 namespace detail {
@@ -573,7 +573,7 @@ queue::event_t enqueue_migrate(
         &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueSVMMigrateMem", "Failed scheduling a migration of "
         + std::to_string(svms.size()) + " SVM regions on " + identify(queue));
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 #endif // CL_VERSION_2_0
 
@@ -601,7 +601,7 @@ queue::event_t enqueue_migrate(
         &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueMigrateMemObjects", "Failed scheduling a migration of "
         + std::to_string(memory_objects.size()) + " memory objects on " + identify(queue));
-    return event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
 }
 
 } // namespace detail

@@ -175,7 +175,7 @@ queue::event_t enqueue_svm_copy(
     throw_if_error_lazy(status, "clEnqueueSVMMemcpy",
         "Scheduling a shared-virtual-memory copy from " + shared_virtual::detail::identify_region(source) +
         " to " + shared_virtual::detail::identify_region(destination) + " on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -234,7 +234,7 @@ inline queue::event_t copy(
         &resulting_event_handle);
     throw_if_error_lazy(status, "clEnqueueWriteBuffer",
         "Scheduling a copy of a host memory region to an OpenCL buffer on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -264,7 +264,7 @@ inline queue::event_t copy(
         &resulting_event_handle);
     throw_if_error_lazy(status, "clEnqueueReadBuffer",
         "Scheduling a copy from an OpenCL buffer to a host memory region on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -297,7 +297,7 @@ inline queue::event_t copy(
         &resulting_event_handle);
     throw_if_error_lazy(status, "clEnqueueNativeKernel",
         "Scheduling a copy between two host memory regions on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -323,7 +323,7 @@ inline queue::event_t copy(
         &resulting_event_handle);
     throw_if_error_lazy(status, "clEnqueueCopyBuffer",
         "Scheduling a copy between two OpenCL buffers on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -353,7 +353,7 @@ inline queue::event_t copy(
         &resulting_event_handle);
     throw_if_error_lazy(status, "clEnqueueWriteBuffer",
         "Scheduling a copy of a host memory region to an OpenCL buffer on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -385,7 +385,7 @@ inline queue::event_t copy(
     throw_if_error_lazy(status, "clEnqueueReadImage",
         "Scheduling a copy from " + opencl::detail::identify(source) + " to a host memory region on "
         + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -413,7 +413,7 @@ inline queue::event_t copy(
             throw_if_error_lazy(status, "clEnqueueCopyImage",
         "Scheduling a copy of " + opencl::detail::identify(source) + " to " +
              opencl::detail::identify(destination) + "on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -441,7 +441,7 @@ inline queue::event_t copy(
     throw_if_error_lazy(status, "clEnqueueCopyImageToBuffer",
         "Scheduling a copy of " + opencl::detail::identify(source) + " to " +
         opencl::detail::identify(destination) + "on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 inline queue::event_t copy(
@@ -469,7 +469,7 @@ inline queue::event_t copy(
     throw_if_error_lazy(status, "clEnqueueCopyImageToBuffer",
         "Scheduling a copy of " + opencl::detail::identify(source) + " to " +
         opencl::detail::identify(destination) + "on " + opencl::detail::identify(queue));
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 } // namespace detail
@@ -521,7 +521,7 @@ queue::event_t fill(B &&filled, const_region_t pattern, queue_t const &queue)
         filled.size(),
         &resulting_event_handle);
     throw_if_error_lazy(status, "clEnqueueFillBuffer", "Filling a buffer with a pattern");
-    return event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
+    return queue::event::detail::wrap_by_queue(resulting_event_handle, queue, is_owning);
 }
 
 template<typename B, typename T>
