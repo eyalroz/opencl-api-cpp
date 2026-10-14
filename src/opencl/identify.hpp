@@ -40,6 +40,7 @@ std::string identify(kernel_t const&);
 std::string identify(program_t const&);
 std::string identify(program::source_t const&);
 std::string identify(program::with_intermediate_language_t const&);
+std::string identify(program::with_kernels_t const&);
 std::string identify(program::with_binaries_t const&);
 std::string identify(queue_t const&);
 std::string identify(event_t const&);

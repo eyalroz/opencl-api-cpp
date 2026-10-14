@@ -129,7 +129,7 @@ inline std::string identify(nd_range::workgroup_dimensions_t const& dimensions)
 
 namespace detail {
 
-inline std::string identify(platform_t const & platform)
+inline std::string identify(platform_t const& platform)
 {
 	auto platform_name = info::get_string_nothrow<CL_PLATFORM_NAME>(platform.handle());
 	// Note: We can't directly get the index
@@ -142,7 +142,7 @@ inline std::string identify(platform_t const & platform)
 		+ " at " + ptr_as_hex(("C"));
 }
 
-inline std::string identify(context_t const & context)
+inline std::string identify(context_t const& context)
 {
 	return identify(context.handle(), do_not_obtain_details) + " on " + identify(context.platform_handle());
 }
@@ -235,9 +235,14 @@ inline std::string identify(program::with_binaries_t const& program)
 	return identify(program.handle(), do_not_obtain_details)  + " with binaries, in " + identify(program.context());
 }
 
+inline std::string identify(program::with_intermediate_language_t const& program)
+{
+	return identify(program.handle(), do_not_obtain_details)  + " with intermediate language, in " + identify(program.context());
+}
+
 inline std::string identify(program::with_kernels_t const& program)
 {
-	return identify(program.handle(), do_not_obtain_details)  + " with kernels,  in " + identify(program.context());
+	return identify(program.handle(), do_not_obtain_details)  + " with kernels, in " + identify(program.context());
 }
 
 inline std::string identify(queue_t const& queue)
