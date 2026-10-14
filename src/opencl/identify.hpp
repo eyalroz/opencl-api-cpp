@@ -58,15 +58,15 @@ enum {
     do_obtain_details = true
 };
 
-inline std::string identify(platform::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
-inline std::string identify(device::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
-inline std::string identify(context::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
-inline std::string identify(queue::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
-inline std::string identify(memory::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
-inline std::string identify(event::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
-inline std::string identify(program::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
-inline std::string identify(kernel::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
-inline std::string identify(image::sampler::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(platform::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(device::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(context::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(queue::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(memory::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(event::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(program::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(kernel::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
+std::string identify(image::sampler::handle_t handle, bool obtain_details = OCLW_IDENTIFY_OBTAIN_DETAILS_DEFAULT);
 
 } // namespace detail
 
