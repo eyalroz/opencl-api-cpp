@@ -2,6 +2,7 @@
 #ifndef OPENCL_WRAPPERS_IMPL_QUEUE_HPP_
 #define OPENCL_WRAPPERS_IMPL_QUEUE_HPP_
 
+#include "handle_ownership.hpp"
 #include "shared_virtual_memory.hpp"
 #include "launch.hpp"
 #include "image.hpp"

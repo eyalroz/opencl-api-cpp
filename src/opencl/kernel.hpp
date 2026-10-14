@@ -85,7 +85,7 @@ protected:
     context::handle_t context_handle_;
     program::handle_t program_handle_;
     handle_type handle_;
-    detail::handle_ownership_token_t<kernel_t> ownership_token_;
+    detail::handle_ownership_token<kernel_t> ownership_token_;
     // and note that there is no association with a specific device!
 
 public:
@@ -93,7 +93,7 @@ public:
     context::handle_t context_handle() const noexcept { return context_handle_; }
     program::handle_t program_handle() const noexcept { return program_handle_; }
     kernel::handle_t handle() const noexcept { return handle_; }
-    bool owning() const noexcept { return ownership_token_.owning(); }
+    bool owning() const noexcept { return ownership_token_.has_token(); }
 
     platform_t platform() const noexcept;
     context_t context() const noexcept;

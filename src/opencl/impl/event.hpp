@@ -4,6 +4,7 @@
 
 #include "info.hpp"
 #include "miscellany.hpp"
+#include "handle_ownership.hpp"
 #include "../platform.hpp"
 #include "../event.hpp"
 #include "../queue.hpp"

@@ -51,7 +51,7 @@ protected:
     // NOTE: Not thread-safe
     mutable optional<dynarray<device::handle_t>> device_handles_;
     context::handle_t handle_;
-    detail::handle_ownership_token_t<context_t> ownership_token_;
+    detail::handle_ownership_token<context_t> ownership_token_;
 
 public: // non-mutators
     platform::handle_t platform_handle() const noexcept { return platform_handle_; }

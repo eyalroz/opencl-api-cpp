@@ -3,13 +3,13 @@
 #define OPENCL_WRAPPERS_IMPL_DEVICE_HPP_
 
 #include "types.hpp"
+#include "info.hpp"
+#include "platform.hpp"
 #include "../platform.hpp"
 #include "../device.hpp"
 #include "../device_capabilities.hpp"
 #include "../context_device.hpp"
-#include "info.hpp"
-#include "platform.hpp"
-#include "opencl/util/mpark_variant.hpp"
+#include "../util/mpark_variant.hpp"
 
 namespace opencl {
 

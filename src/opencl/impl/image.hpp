@@ -4,6 +4,7 @@
 
 #include "buffer.hpp"
 #include "memory_object.hpp"
+#include "info.hpp"
 #include "../identify.hpp"
 #include "../image.hpp"
 #include "../buffer.hpp"

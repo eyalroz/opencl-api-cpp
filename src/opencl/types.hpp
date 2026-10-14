@@ -14,6 +14,7 @@
 #include "util/optional.hpp"
 #include "util/dynarray.hpp"
 #include "util/static_dynarray.hpp"
+#include "handle_ownership.hpp"
 
 // We'll be more friendly to "newbie" users by assuming they want OpenCL 3.0
 // without a warning

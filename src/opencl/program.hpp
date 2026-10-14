@@ -22,6 +22,7 @@ namespace program {
 
 namespace detail {
 
+context::handle_t get_context_handle(handle_t handle);
 template <typename Program>
 Program upcast(program_t const& program) = delete; // but there are specializations...
 
@@ -119,13 +120,13 @@ protected:
     platform::handle_t platform_handle_;
     context::handle_t context_handle_;
     handle_type handle_;
-    detail::handle_ownership_token_t<program_t> ownership_token_;
+    detail::handle_ownership_token<program_t> ownership_token_;
 
 public:
     platform::handle_t platform_handle() const noexcept { return platform_handle_; }
     context::handle_t context_handle() const noexcept { return context_handle_; }
     handle_type handle() const noexcept { return handle_; }
-    bool owning() const noexcept { return ownership_token_.owning(); }
+    bool owning() const noexcept { return ownership_token_.has_token(); }
 
     platform_t platform() const noexcept;
     context_t context() const noexcept;

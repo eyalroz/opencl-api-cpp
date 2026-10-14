@@ -9,7 +9,7 @@
 #define OPENCL_WRAPPERS_MEMORY_OBJECT_HPP_
 
 #include "types.hpp"
-#include "impl/ownership_token_t.hpp"
+#include "handle_ownership.hpp"
 #include "util/region.hpp"
 #include "util/optional.hpp"
 
@@ -39,7 +39,7 @@ protected:
     platform::handle_t platform_handle_;
     context::handle_t context_handle_;
     handle_type handle_;
-    opencl::detail::handle_ownership_token_t<object_t> ownership_token_;
+    opencl::detail::handle_ownership_token<object_t> ownership_token_;
 
     memory::region_t host_region_ { nullptr }; // We could use optional, but this is nullable, so...
 
@@ -47,7 +47,7 @@ public:
     platform::handle_t platform_handle() const noexcept { return platform_handle_; }
     context::handle_t context_handle() const noexcept { return context_handle_; }
     memory::handle_t handle() const noexcept { return handle_; }
-    bool owning() const noexcept { return ownership_token_.owning(); }
+    bool owning() const noexcept { return ownership_token_.has_token(); }
 
     platform_t platform() const noexcept;
     context_t context() const noexcept;

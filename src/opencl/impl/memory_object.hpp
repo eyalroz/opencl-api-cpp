@@ -2,6 +2,7 @@
 #ifndef OPENCL_WRAPPERS_IMPL_MEMORY_OBJECT_HPP_
 #define OPENCL_WRAPPERS_IMPL_MEMORY_OBJECT_HPP_
 
+#include "handle_ownership.hpp"
 #include "context.hpp"
 #include "memory.hpp"
 #include "info.hpp"

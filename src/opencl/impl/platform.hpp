@@ -2,6 +2,7 @@
 #ifndef OPENCL_WRAPPERS_IMPL_PLATFORM_HPP_
 #define OPENCL_WRAPPERS_IMPL_PLATFORM_HPP_
 
+#include "info.hpp"
 #include "../device.hpp"
 #include "../platform.hpp"
 #include "../error.hpp"

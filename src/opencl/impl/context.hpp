@@ -2,6 +2,7 @@
 #ifndef OPENCL_WRAPPERS_IMPL_CONTEXT_HPP_
 #define OPENCL_WRAPPERS_IMPL_CONTEXT_HPP_
 
+#include "handle_ownership.hpp"
 #include "platform.hpp"
 #include "info.hpp"
 #include "../device.hpp"

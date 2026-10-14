@@ -2,8 +2,9 @@
 #ifndef OPENCL_WRAPPERS_IMPL_CAPABILITIES_HPP_
 #define OPENCL_WRAPPERS_IMPL_CAPABILITIES_HPP_
 
-#include "../device_capabilities.hpp"
 #include "device.hpp"
+#include "info.hpp"
+#include "../device_capabilities.hpp"
 #include "../version.hpp"
 
 namespace opencl {

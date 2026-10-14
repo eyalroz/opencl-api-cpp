@@ -72,7 +72,7 @@ protected:
     context::handle_t context_handle_;
     device::handle_t device_handle_;
     handle_type handle_;
-    detail::handle_ownership_token_t<queue_t> ownership_token_;
+    detail::handle_ownership_token<queue_t> ownership_token_;
 
 public:
     platform::handle_t platform_handle() const noexcept { return platform_handle_; }
@@ -83,7 +83,7 @@ public:
     platform_t platform() const noexcept;
     context_t context() const noexcept;
     context::device_t device() const noexcept;
-    bool owning() const noexcept { return ownership_token_.owning(); }
+    bool owning() const noexcept { return ownership_token_.has_token(); }
 
 protected:
     queue_t(

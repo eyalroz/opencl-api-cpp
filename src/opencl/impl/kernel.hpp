@@ -2,13 +2,16 @@
 #ifndef OPENCL_WRAPPERS_IMPL_KERNEL_HPP_
 #define OPENCL_WRAPPERS_IMPL_KERNEL_HPP_
 
+#include "handle_ownership.hpp"
+#include "info.hpp"
+#include "build_info.hpp"
 #include "../device.hpp"
 #include "../kernel.hpp"
 #include "../program.hpp"
-#include "build_info.hpp"
 #include "../identify.hpp"
-#include "info.hpp"
-#include "ownership_token_t.hpp"
+#include "../event.hpp"
+#include "../platform.hpp"
+#include "../shared_virtual_memory.hpp"
 
 #include <array>
 

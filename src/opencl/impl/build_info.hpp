@@ -2,8 +2,8 @@
 #ifndef OPENCL_WRAPPERS_IMPL_BUILD_INFO_HPP_
 #define OPENCL_WRAPPERS_IMPL_BUILD_INFO_HPP_
 
+#include "info.hpp"
 #include "program.hpp"
-
 #include "../build_info.hpp"
 
 namespace opencl {
