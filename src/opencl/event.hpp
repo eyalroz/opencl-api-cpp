@@ -56,10 +56,10 @@ event_t wrap(
 
 namespace detail {
 event_t wrap_by_queue(opencl::event::handle_t handle, queue_t const& queue, bool owning);
-}
+} // namespace detail
 
-}
-}
+} // namespace event
+} // namespace queue
 
 // An abstract class for user events and queue events
 class event_t  {
