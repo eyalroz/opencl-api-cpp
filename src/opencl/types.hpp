@@ -173,7 +173,6 @@ namespace memory {
 class object_t;
 class copy_parameters_t;
 class properties_t;
-namespace local { struct allowance_t; }
 } // namespace memory
 using memory_object_t = memory::object_t;
 namespace kernel {
@@ -297,6 +296,22 @@ host_and_kernel_access_t operator|(host_and_kernel_access_t lhs, host_and_kernel
 constexpr host_and_kernel_access_t full_access() noexcept;
 
 using subregion_spec_t = cl_buffer_region;
+
+namespace local {
+/**
+ * @brief an indication of the dynamic local memory allowance of a given kernel.
+ *
+ * In OpenCL, local memory can be allocated statically using in-kernel variables of
+ * fixed size marked `__local`, or dynamically - via a kernel parameter, a pointer
+ * marked `__local`. An argument for this parameter is not set by the user; instead,
+ * an allowance, a size, of local memory to be allocated is indicated, and the
+ * OpenCL driver populates the actual pointer. This structure is necessary for
+ * the library automaAs we are not able to distinguish
+ * a "simple" size_t or similar argument from a local memory i
+ */
+struct allowance_t { size_t size; };
+
+} // namespace local
 
 namespace mapping {
 

@@ -87,22 +87,6 @@ flags_t make_flags(destination_t destination, bool maintain_contents);
 } // namespace detail
 } // namespace migration
 
-namespace local {
-/**
- * @brief an indication of the dynamic local memory allowance of a given kernel.
- *
- * In OpenCL, local memory can be allocated statically using in-kernel variables of
- * fixed size marked `__local`, or dynamically - via a kernel parameter, a pointer
- * marked `__local`. An argument for this parameter is not set by the user; instead,
- * an allowance, a size, of local memory to be allocated is indicated, and the
- * OpenCL driver populates the actual pointer. This structure is necessary for
- * the library automaAs we are not able to distinguish
- * a "simple" size_t or similar argument from a local memory i
- */
-struct allowance_t { size_t size; };
-
-} // namespace local
-
 } // namespace memory
 
 } // namespace opencl
