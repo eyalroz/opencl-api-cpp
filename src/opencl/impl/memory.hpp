@@ -62,7 +62,9 @@ enum class kind_t {
     memory_object, // this could be a buffer, pipe or image, but with some type erasure
     buffer,
     pipe,
+#ifdef CL_VERSION_2_0
     shared_virtual,
+#endif
     image,
     unknown
     // Note: Ignoring rectangles
@@ -75,7 +77,9 @@ inline char const* name_of(kind_t kind)
     case kind_t::memory_object: return "memory object";
     case kind_t::buffer: return "buffer";
     case kind_t::pipe: return "pipe";
+#ifdef CL_VERSION_2_0
     case kind_t::shared_virtual: return "shared virtual region";
+#endif
     case kind_t::image: return "image";
     case kind_t::unknown:
     default:
@@ -93,8 +97,10 @@ template <typename T>
 using kind_of_helper_ = std::integral_constant<kind_t,
     std::is_same<T, buffer_t>::value ? kind_t::buffer :
     std::is_same<T, pipe_t>::value ? kind_t::pipe :
+#ifdef CL_VERSION_2_0
     (std::is_same<T, shared_virtual::region_t>::value or
      std::is_same<T, shared_virtual::const_region_t>::value) ? kind_t::shared_virtual :
+#endif
     ((opencl::detail::has_size_method<T>::value and
      opencl::detail::has_data_method<T>::value) or
      std::is_array<T>::value) ? kind_t::host :  kind_t::unknown
@@ -155,6 +161,8 @@ size_t size_in_bytes_of(Container const& container)
 
 namespace detail {
 
+#ifdef CL_VERSION_2_0
+
 template <typename SourceRegion, typename DestinationRegion>
 queue::event_t enqueue_svm_copy(
     SourceRegion source,
@@ -214,6 +222,8 @@ inline queue::event_t copy(
 {
     return enqueue_svm_copy(source, destination, queue, event_handles);
 }
+
+#endif // CL_VERSION_2_0
 
 inline queue::event_t copy(
     lifted_kind_t<kind_t::host>,
