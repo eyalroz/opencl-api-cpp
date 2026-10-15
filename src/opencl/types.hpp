@@ -451,7 +451,7 @@ inline dimensions_t line(dimension_t x) noexcept   { return dimensions_t{ x, 1lu
 
 /// Dimensions of a single point - trivial in all axes
 ///
-/// @TODO Templatize and constexpr'ify this
+/// @todo Templatize and constexpr'ify this
 inline dimensions_t point(dimension_index_t dimensionality) noexcept;
 
 using workgroup_dimensions_t = dimensions_t;

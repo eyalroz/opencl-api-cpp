@@ -13,6 +13,7 @@
 
 namespace opencl {
 
+///@cond
 inline char const* info::detail::traits_t<info::device>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
@@ -146,6 +147,7 @@ inline char const* info::detail::traits_t<info::device>::attribute_name(attribut
     default: return nullptr;
     }
 }
+///@endcond
 
 inline platform_t device_t::platform() const noexcept
 {

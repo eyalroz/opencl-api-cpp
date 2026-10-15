@@ -14,6 +14,7 @@
 
 namespace opencl {
 
+///@cond
 inline char const* info::detail::traits_t<info::program>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
@@ -38,6 +39,7 @@ inline char const* info::detail::traits_t<info::program>::attribute_name(attribu
     default: return nullptr;
     }
 }
+///@endcond
 
 inline char const* name_of(program::build_status_t status)
 {

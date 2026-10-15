@@ -199,7 +199,7 @@ public: // constructors and destructor
 
     /// A move constructor.
     ///
-    /// @TODO Can we drop this one in favor of the general move ctor?
+    /// @todo Can we drop this one in favor of the general move ctor?
     dynarray(dynarray&& other) noexcept : dynarray(other.release(), other.allocator_, other.deleter_) { }
 
     ~dynarray() noexcept(noexcept(deleter_(*this)))

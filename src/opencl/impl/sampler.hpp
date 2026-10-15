@@ -10,6 +10,7 @@
 
 namespace opencl {
 
+///@cond
 inline char const* info::detail::traits_t<info::sampler>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
@@ -29,6 +30,7 @@ inline char const* info::detail::traits_t<info::sampler>::attribute_name(attribu
     default: return nullptr;
     }
 }
+///@endcond
 
 namespace detail {
 

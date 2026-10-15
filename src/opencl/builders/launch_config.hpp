@@ -8,6 +8,7 @@ namespace opencl {
 
 namespace builders {
 
+///@cond
 namespace nd_range {
 
 using opencl::nd_range::dimension_index_t;
@@ -17,6 +18,7 @@ using opencl::nd_range::composite_dimensions_t;
 using opencl::nd_range::workgroup_dimensions_t;
 
 } // namespace nd_range
+///@endcond
 
 /**
  * A convenience class for gradually constructing a @ref launch_configuration_t instance,

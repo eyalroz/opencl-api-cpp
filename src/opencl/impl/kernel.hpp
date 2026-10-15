@@ -17,6 +17,7 @@
 
 namespace opencl {
 
+///@cond
 inline char const* info::detail::traits_t<info::kernel>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
@@ -47,8 +48,10 @@ inline char const* info::detail::traits_t<info::kernel_workgroup>::attribute_nam
     default: return nullptr;
     }
 }
+///@endcond
 
 #ifdef CL_VERSION_1_2
+///@cond
 inline char const* info::detail::traits_t<info::kernel_parameter>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
@@ -60,6 +63,7 @@ inline char const* info::detail::traits_t<info::kernel_parameter>::attribute_nam
     default: return nullptr;
     }
 }
+///@endcond
 #endif
 
 namespace detail {
