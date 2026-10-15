@@ -15,21 +15,6 @@
 #include <stdexcept>
 
 namespace opencl {
-namespace detail {
-
-inline char const * ordinal_suffix(int n)
-{
-    static char constexpr suffixes [4][5] = {"th", "st", "nd", "rd"};
-    auto ord = n % 100;
-    if (ord / 10 == 1) { ord = 0; }
-    ord = ord % 10;
-    return suffixes[ord > 3 ? 0 : ord];
-}
-
-template <typename N = int>
-std::string xth(N n) { return std::to_string(n) + ordinal_suffix(n); }
-
-} // namespace detail
 
 namespace status {
 

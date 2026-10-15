@@ -28,17 +28,7 @@ bool your_type_was_() { return true; }
 #define print_type_of(_x) your_type_was_<decltype(_x)>()
 #endif
 
-inline const char* ordinal_suffix(int n)
-{
-	static constexpr char suffixes [4][5] = {"th", "st", "nd", "rd"};
-	auto ord = n % 100;
-	if (ord / 10 == 1) { ord = 0; }
-	ord = ord % 10;
-	return suffixes[ord > 3 ? 0 : ord];
-}
-
-template <typename N = int>
-std::string xth(N n) { return std::to_string(n) + ordinal_suffix(n); }
+using opencl::detail::xth;
 
 std::ostream& operator<<(std::ostream& os, opencl::nd_range::dimensions_t const& dims)
 {
