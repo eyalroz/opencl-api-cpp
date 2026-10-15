@@ -1,6 +1,7 @@
 #include <opencl.hpp>
 
 #include <iostream>
+#include <string>
 
 std::string get_default_device_name(opencl::platform_t const& platform);
 
