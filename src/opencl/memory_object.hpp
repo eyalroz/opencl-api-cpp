@@ -96,7 +96,7 @@ public:
     }
 }; // class object_t
 
-inline bool operator==(object_t const& lhs, object_t const& rhs) noexcept;
+bool operator==(object_t const& lhs, object_t const& rhs) noexcept;
 inline bool operator!=(object_t const& lhs, object_t const& rhs) noexcept { return not (lhs == rhs); }
 
 } // namespace memory

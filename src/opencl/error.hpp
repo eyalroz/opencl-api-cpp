@@ -163,8 +163,8 @@ do { \
  * @param message An extra description message to add to the exception
  */
 ///@{
-inline void throw_if_error(status_t status, char const* api_function_name, const std::string& message) noexcept(false);
-inline void throw_if_error(status_t status, char const* api_function_name, std::string&& message) noexcept(false);
+void throw_if_error(status_t status, char const* api_function_name, const std::string& message) noexcept(false);
+void throw_if_error(status_t status, char const* api_function_name, std::string&& message) noexcept(false);
 ///@}
 
 /**

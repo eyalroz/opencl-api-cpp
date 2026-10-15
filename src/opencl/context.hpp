@@ -114,7 +114,7 @@ public:
     //TODO: A method utilizing CL_MEM_ALLOC_HOST_PTR
 }; // class context_t
 
-inline bool operator==(const context_t& lhs, const context_t& rhs) noexcept;
+bool operator==(const context_t& lhs, const context_t& rhs) noexcept;
 inline bool operator!=(const context_t& lhs, const context_t& rhs) noexcept { return not (lhs == rhs); }
 
 } // namespace opencl

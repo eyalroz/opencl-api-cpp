@@ -354,6 +354,11 @@ inline device::index_t device_t::index_in_platform() const
     return device::detail::index_in_platform_of(handle_, platform_handle_, CL_DEVICE_TYPE_ALL);
 }
 
+inline bool operator==(const device_t& lhs, const device_t& rhs) noexcept
+{
+    return lhs.platform_handle() == rhs.platform_handle() and lhs.handle() == rhs.handle();
+}
+
 } // namespace opencl
 
 template<> struct std::hash<opencl::device_t> {

@@ -169,7 +169,7 @@ public:
 
 } // namespace queue
 
-inline bool operator==(event_t const& lhs, event_t const& rhs) noexcept;
+bool operator==(event_t const& lhs, event_t const& rhs) noexcept;
 inline bool operator!=(event_t const& lhs, event_t const& rhs) noexcept { return not (lhs == rhs); }
 
 } // namespace opencl

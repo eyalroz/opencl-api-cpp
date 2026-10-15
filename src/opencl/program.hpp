@@ -158,7 +158,7 @@ public:
     bool has_kernels() const;
 }; // class program_t
 
-inline bool operator==(const program_t& lhs, const program_t& rhs) noexcept;
+bool operator==(const program_t& lhs, const program_t& rhs) noexcept;
 inline bool operator!=(const program_t& lhs, const program_t& rhs) noexcept { return not (lhs == rhs); }
 
 bool has_sources(program_t const& program);

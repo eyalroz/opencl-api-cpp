@@ -91,11 +91,7 @@ public:
 
 }; // class device_t
 
-inline bool operator==(const device_t& lhs, const device_t& rhs) noexcept
-{
-    return lhs.platform_handle() == rhs.platform_handle() and lhs.handle() == rhs.handle();
-}
-
+bool operator==(const device_t& lhs, const device_t& rhs) noexcept;
 inline bool operator!=(const device_t& lhs, const device_t& rhs) noexcept { return not (lhs == rhs); }
 
 } // namespace opencl
