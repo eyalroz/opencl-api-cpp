@@ -259,10 +259,6 @@ inline queue::event_t copy(
     if (destination.size() < source.size_in_bytes()) {
         throw std::invalid_argument("Attempt to copy a buffer of size " + std::to_string(source.size_in_bytes()) +
             " to a host memory region of smaller size " + std::to_string(destination.size()));
-        // throw std::invalid_argument(opencl::detail::format("Attempt to copy a buffer of size ",
-        //     source.size_in_bytes(), " to a buffer of smaller size ", destination.size()));
-        // oclw_throw(std::invalid_argument, "Attempt to copy a buffer of size ",
-        //     source.size_in_bytes(), " to a buffer of smaller size ", destination.size());
     }
 
     event::handle_t resulting_event_handle;

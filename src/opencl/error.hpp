@@ -14,8 +14,6 @@
 #include <string>
 #include <stdexcept>
 
-#define oclw_throw(_exception_type, ...) throw _exception_type(opencl::detail::format(__VA_ARGS__))
-
 namespace opencl {
 namespace detail {
 
