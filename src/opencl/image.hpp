@@ -109,7 +109,8 @@ using memory::host_and_kernel_access_t;
 struct spec_t {
     layout_t layout;
     format_t element_format;
-    optional<memory::object_t> backing_object; // TODO: Can we even have this with OpenCL 1.0?
+    // This can never be engaged with OpenCL versions under 2.0
+    optional<memory::object_t> backing_object;
 
     size_t size_in_bytes() const noexcept;
     /// @note The volume is the _effective_ volume of image elements, not the space taken

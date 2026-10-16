@@ -80,6 +80,7 @@ inline spec_t const& array_t::constituent_image_spec() const
     return *constituent_image_spec_;
 }
 
+#if CL_VERSION_2_0
 inline optional<buffer_t> array_t::associated_buffer() const
 {
     auto const& backing_object = constituent_image_spec().backing_object;
@@ -88,6 +89,7 @@ inline optional<buffer_t> array_t::associated_buffer() const
     }
     return nullopt;
 }
+#endif // CL_VERSION_2_0
 
 } // namespace image
 

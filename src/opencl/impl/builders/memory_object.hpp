@@ -81,13 +81,38 @@ Builder& memory_object_t<Builder>::host_access(access_kind_t access_kind)
     enable_host_access(access_kind);
     return static_cast<Builder&>(*this);
 }
-#endif // CL_VERSION_1_2
 
 template <typename Builder>
 Builder& memory_object_t<Builder>::no_host_access()
 {
     return disable_host_access(access_kind_t::read_and_write);
 }
+
+template <typename Builder>
+Builder& memory_object_t<Builder>::enable_access(side_t side, access_kind_t access_kind)
+{
+    return (side == side_t::host) ?
+        enable_host_access(access_kind) :
+        enable_device_access(access_kind);
+}
+
+template <typename Builder>
+Builder& memory_object_t<Builder>::disable_access(side_t side, access_kind_t access_kind)
+{
+    return (side == side_t::host) ?
+        disable_host_access(access_kind) :
+        disable_device_access(access_kind);
+}
+
+template <typename Builder>
+Builder& memory_object_t<Builder>::access(side_t side, access_kind_t access_kind)
+{
+    return (side == side_t::host) ?
+        host_access(access_kind) :
+        device_access(access_kind);
+}
+
+#endif // CL_VERSION_1_2
 
 template <typename Builder>
 Builder& memory_object_t<Builder>::disable_device_access(access_kind_t access_kind)
@@ -158,30 +183,6 @@ template <typename Builder>
 Builder& memory_object_t<Builder>::no_device_access()
 {
     return device_access(access_kind_t::none);
-}
-
-template <typename Builder>
-Builder& memory_object_t<Builder>::enable_access(side_t side, access_kind_t access_kind)
-{
-    return (side == side_t::host) ?
-        enable_host_access(access_kind) :
-        enable_device_access(access_kind);
-}
-
-template <typename Builder>
-Builder& memory_object_t<Builder>::disable_access(side_t side, access_kind_t access_kind)
-{
-    return (side == side_t::host) ?
-        disable_host_access(access_kind) :
-        disable_device_access(access_kind);
-}
-
-template <typename Builder>
-Builder& memory_object_t<Builder>::access(side_t side, access_kind_t access_kind)
-{
-    return (side == side_t::host) ?
-        host_access(access_kind) :
-        device_access(access_kind);
 }
 
 template <typename Builder>

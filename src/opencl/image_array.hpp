@@ -83,7 +83,7 @@ public:
     spec_t const& constituent_image_spec() const;
     size_t size() const noexcept { return num_images_; }
     size_t num_images() const noexcept { return size(); }
-#if CL_VERSION_1_2
+#if CL_VERSION_2_0
     optional<buffer_t> associated_buffer() const;
 #endif
 
