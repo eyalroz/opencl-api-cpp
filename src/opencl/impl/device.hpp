@@ -13,7 +13,7 @@
 
 namespace opencl {
 
-inline char const* info::traits_t<info::device>::attribute_name(attribute_id_type attribute) noexcept
+inline char const* info::detail::traits_t<info::device>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
     case CL_DEVICE_TYPE:                                   return "type";

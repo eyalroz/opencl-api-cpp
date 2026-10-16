@@ -10,7 +10,7 @@
 
 namespace opencl {
 
-inline char const* info::traits_t<info::memory_object>::attribute_name(attribute_id_type attribute) noexcept
+inline char const* info::detail::traits_t<info::memory_object>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
     case CL_MEM_TYPE:                      return "type";

@@ -14,7 +14,7 @@
 
 namespace opencl {
 
-inline char const* info::traits_t<info::program>::attribute_name(attribute_id_type attribute) noexcept
+inline char const* info::detail::traits_t<info::program>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
     case  CL_PROGRAM_REFERENCE_COUNT:                  return "reference count";

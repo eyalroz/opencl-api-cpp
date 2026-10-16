@@ -17,7 +17,7 @@
 
 namespace opencl {
 
-inline char const* info::traits_t<info::kernel>::attribute_name(attribute_id_type attribute) noexcept
+inline char const* info::detail::traits_t<info::kernel>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
     case CL_KERNEL_FUNCTION_NAME:   return "name";
@@ -32,7 +32,7 @@ inline char const* info::traits_t<info::kernel>::attribute_name(attribute_id_typ
     }
 }
 
-inline char const* info::traits_t<info::kernel_workgroup>::attribute_name(attribute_id_type attribute) noexcept
+inline char const* info::detail::traits_t<info::kernel_workgroup>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
     case CL_KERNEL_WORK_GROUP_SIZE:         return "maximum supported overall workgroup size";
@@ -49,7 +49,7 @@ inline char const* info::traits_t<info::kernel_workgroup>::attribute_name(attrib
 }
 
 #ifdef CL_VERSION_1_2
-inline char const* info::traits_t<info::kernel_parameter>::attribute_name(attribute_id_type attribute) noexcept
+inline char const* info::detail::traits_t<info::kernel_parameter>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
     case CL_KERNEL_ARG_ADDRESS_QUALIFIER:   return "address qualifier";

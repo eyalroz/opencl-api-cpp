@@ -48,7 +48,9 @@ enum source_kind_t {
     // kernel_subgroup
 };
 
+namespace detail {
 template<source_kind_t Kind> struct traits_t;
+} // namespace detail
 
 #define OCLW_DEFINE_TRAITS(source_kind_, handle_type_, attribute_id_type_, info_getter_) \
 template<> struct traits_t<source_kind_> { \
@@ -124,8 +126,6 @@ template<> inline cl_int handle_pair_info_getter<kernel_param_index_pair_t>(
         handles.kernel_, handles.index_, param_name, param_value_size, param_value, param_value_size_ret);
 }
 
-} // namespace detail
-
 OCLW_DEFINE_TRAITS(platform,        platform::handle_t, cl_platform_info,      clGetPlatformInfo);
 OCLW_DEFINE_TRAITS(device,          device::handle_t,   cl_device_info,        clGetDeviceInfo);
 OCLW_DEFINE_TRAITS(context,         context::handle_t,  cl_context_info,       clGetContextInfo);
@@ -149,14 +149,16 @@ OCLW_DEFINE_TRAITS(kernel_workgroup,       detail::kernel_device_handle_pair_t, 
     detail::handle_pair_info_getter<detail::kernel_device_handle_pair_t>);
 // OCLW_DEFINE_TRAITS(kernel_subgroup, kernel::handle_t,     cl_kernel_sub_group_info, clGetKernelSubGroupInfo);
 
+} // namespace detail
+
 template <int InfoParameter>
 constexpr source_kind_t kind() noexcept
 {
     return static_cast<source_kind_t>(detail::raw_info_parameter_type_mapper<InfoParameter>::kind);
 }
 
-template<int InfoParameter> using handle_t = typename traits_t<kind<InfoParameter>()>::handle_type;
-template<source_kind_t Kind> using attribute_id_t = typename traits_t<Kind>::attribute_id_type;
+template<int InfoParameter> using handle_t = typename detail::traits_t<kind<InfoParameter>()>::handle_type;
+template<source_kind_t Kind> using attribute_id_t = typename detail::traits_t<Kind>::attribute_id_type;
 
 namespace detail {
 
@@ -521,7 +523,7 @@ get_scalar_nothrow(handle_t<InfoParameter> handle) noexcept
     using value_type = parameter_value_t<InfoParameter>;
     constexpr source_kind_t kind_ = kind<InfoParameter>();
     value_or_status_t<value_type> result;
-    result.status = traits_t<kind_>::info_getter(handle, InfoParameter, sizeof(value_type), &result.value, nullptr);
+    result.status = detail::traits_t<kind_>::info_getter(handle, InfoParameter, sizeof(value_type), &result.value, nullptr);
     return result;
 }
 
@@ -529,7 +531,7 @@ template <int InfoParameter>
 parameter_value_t<InfoParameter>
 get_scalar(handle_t<InfoParameter> handle)
 {
-    using traits = traits_t<kind<InfoParameter>()>;
+    using traits = detail::traits_t<kind<InfoParameter>()>;
     auto result = get_scalar_nothrow<InfoParameter>(handle);
     return_or_throw_if_error(result, traits::info_getter_name(),
         std::string("Obtaining attribute ") + traits::attribute_name(InfoParameter)
@@ -539,7 +541,7 @@ get_scalar(handle_t<InfoParameter> handle)
 template <int InfoParameter>
 value_or_status_t<size_t> get_array_size_bytes_nothrow(handle_t<InfoParameter> handle) noexcept
 {
-    using traits = traits_t<kind<InfoParameter>()>;
+    using traits = detail::traits_t<kind<InfoParameter>()>;
     value_or_status_t<size_t> result;
     result.status = traits::info_getter(handle, InfoParameter, 0, nullptr, &result.value);
     return result;
@@ -548,7 +550,7 @@ value_or_status_t<size_t> get_array_size_bytes_nothrow(handle_t<InfoParameter> h
 template <int InfoParameter>
 size_t get_array_size_bytes(handle_t<InfoParameter> handle)
 {
-    using traits = traits_t<kind<InfoParameter>()>;
+    using traits = detail::traits_t<kind<InfoParameter>()>;
     auto size_bytes = get_array_size_bytes_nothrow<InfoParameter>(handle);
     return_or_throw_if_error(size_bytes, traits::info_getter_name(),
         std::string("Obtaining the size of ") + traits::attribute_name(InfoParameter)
@@ -574,7 +576,7 @@ size_t get_array_size(handle_t<InfoParameter> handle)
     size_t size = size_bytes / sizeof(element_type);
     if (size * sizeof(element_type) != size_bytes) {
         throw std::runtime_error(std::string{"The size of attribute "}
-            + traits_t<kind<InfoParameter>()>::attribute_name(InfoParameter)
+            + detail::traits_t<kind<InfoParameter>()>::attribute_name(InfoParameter)
             + " of " + opencl::detail::identify(handle) + " is not a multiple of its element type size");
     }
     return size;
@@ -585,14 +587,14 @@ status_t get_array_nothrow(handle_t<InfoParameter> handle, span<element_type_t<I
 {
     using element_type = element_type_t<InfoParameter>;
     auto buffer_size_bytes = storage.size() * sizeof(element_type);
-    return traits_t<kind<InfoParameter>()>::info_getter(handle, InfoParameter, buffer_size_bytes, storage.data(), nullptr);
+    return detail::traits_t<kind<InfoParameter>()>::info_getter(handle, InfoParameter, buffer_size_bytes, storage.data(), nullptr);
 }
 
 template <int InfoParameter>
 void get_array(handle_t<InfoParameter> handle, span<element_type_t<InfoParameter>> storage)
 {
     using element_type = element_type_t<InfoParameter>;
-    using traits = traits_t<kind<InfoParameter>()>;
+    using traits = detail::traits_t<kind<InfoParameter>()>;
     auto buffer_size_bytes = storage.size() * sizeof(element_type);
     auto status = traits::info_getter(
         handle, InfoParameter, buffer_size_bytes, storage.data(), nullptr);
@@ -620,7 +622,7 @@ get_array(handle_t<InfoParameter> handle)
     using element_type = element_type_t<InfoParameter>;
     auto size = get_array_size<InfoParameter>(handle);
     if (size == 0) {
-        throw std::runtime_error(std::string{"No "} + traits_t<kind<InfoParameter>()>::attribute_name(InfoParameter)
+        throw std::runtime_error(std::string{"No "} + detail::traits_t<kind<InfoParameter>()>::attribute_name(InfoParameter)
             + " (i.e. its size is 0) for " + opencl::detail::identify(handle));
     }
     auto result = make_dynarray<element_type>(size);

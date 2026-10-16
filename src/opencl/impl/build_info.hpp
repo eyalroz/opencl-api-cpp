@@ -8,7 +8,7 @@
 
 namespace opencl {
 
-inline char const* info::traits_t<info::program_build>::attribute_name(attribute_id_type attribute) noexcept
+inline char const* info::detail::traits_t<info::program_build>::attribute_name(attribute_id_type attribute) noexcept
 {
     switch (attribute) {
     case  CL_PROGRAM_BUILD_STATUS:                     return "build status";
