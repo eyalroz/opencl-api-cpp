@@ -11,8 +11,8 @@
 #include <string>
 #include <vector>
 
-#ifndef STRINGIFY
-#define STRINGIFY(_q) #_q
+#ifndef OCLW_STRINGIFY
+#define OCLW_STRINGIFY(_q) #_q
 #endif
 
 namespace opencl {

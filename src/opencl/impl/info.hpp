@@ -71,7 +71,7 @@ template<> struct traits_t<source_kind_> { \
     { \
         return info_getter_(handle, attribute, attribute_value_size, attribute_value, attribute_value_size_ret); \
     } \
-    static char const* info_getter_name() noexcept { return STRINGIFY(info_getter_); }; \
+    static char const* info_getter_name() noexcept { return OCLW_STRINGIFY(info_getter_); }; \
     static char const* attribute_name(attribute_id_type) noexcept; \
 };
 // Note: If we were using C++17, we would have static const _data_ members for the info getter and the info getter's

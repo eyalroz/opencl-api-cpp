@@ -14,8 +14,8 @@
 #include "../identify.hpp"
 #include "../error.hpp"
 
-#ifndef STRINGIFY
-#define STRINGIFY(_q) #_q
+#ifndef OCLW_STRINGIFY
+#define OCLW_STRINGIFY(_q) #_q
 #endif
 
 namespace opencl {
@@ -46,10 +46,10 @@ struct handle_traits {
 #define OCLW_DEFINE_HANDLE_TRAITS(_type_name, _handle_type, _release_func, _retain_func) \
 template <> inline handle_traits<_handle_type>::release_type \
 handle_traits<_handle_type>::release() { return _release_func; }; \
-template <> inline char const* handle_traits<_handle_type>::release_name() { return STRINGIFY(_release_func); } \
+template <> inline char const* handle_traits<_handle_type>::release_name() { return OCLW_STRINGIFY(_release_func); } \
 template <> inline handle_traits<_handle_type>::retain_type \
 handle_traits<_handle_type>::retain() { return _retain_func; } \
-template <> inline char const* handle_traits<_handle_type>::retain_name() { return STRINGIFY(_retain_func); }
+template <> inline char const* handle_traits<_handle_type>::retain_name() { return OCLW_STRINGIFY(_retain_func); }
 
 
 template <typename Wrapper>
