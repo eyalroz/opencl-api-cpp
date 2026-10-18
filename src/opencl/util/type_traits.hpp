@@ -70,6 +70,18 @@
 #define OCLW_DESTRUCTOR_NOEXCEPT noexcept
 #endif
 
+/* Define capabilities for anonymous union members. */
+#if !defined (CL_VERSION_3_1) && ! defined(__CL_HAS_ANON_UNION__)
+#if defined(__cplusplus) && __cplusplus >= 201103L
+#define  __CL_HAS_ANON_UNION__ 1
+#define  __CL_ANON_UNION__
+#else
+/* Follow anonymous struct logic */
+#define  __CL_HAS_ANON_UNION__ __CL_HAS_ANON_STRUCT__
+#define  __CL_ANON_UNION__ __CL_ANON_STRUCT__
+#endif
+#endif
+
 namespace opencl {
 
 namespace detail {
