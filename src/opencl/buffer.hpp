@@ -75,7 +75,7 @@ buffer_t create_copy_of(
 buffer_t create_sub_buffer(
     buffer_t const& parent,
     memory::subregion_spec_t subregion,
-    host_and_kernel_access_t access_spec);
+    host_and_kernel_access_t access_spec = full_access());
 
 // TODO: Support creation with association to a set of devices via CL_MEM_DEVICE_HANDLE_LIST_KHR
 
