@@ -45,6 +45,7 @@ public:
     size_t local_memory_size() const;
     version_t supported_opencl_version() const;
     std::string supported_opencl_version_string() const;
+    dynarray<std::string> supported_extensions() const;
 #if CL_VERSION_2_0
     size_t image_pitch_alignment() const;
     size_t image_base_address_alignment() const;
@@ -73,7 +74,7 @@ public:
     bool subgroups_can_make_independent_forward_progress() const;
 #endif // CL_VERSION_2_1
 #ifdef CL_VERSION_3_0
-    dynarray<name_and_version_t> supported_extensions() const;
+    dynarray<name_and_version_t> supported_extension_versions() const;
     dynarray<name_and_version_t> supported_intermediate_languages() const;
     dynarray<name_and_version_t> builtin_kernels() const;
     cl_device_atomic_capabilities raw_atomic_memory_capabilities() const;
@@ -83,7 +84,12 @@ public:
     nd_range::dimension_t preferred_workgroup_size_quantum() const;
     bool collective_functions_support() const;
     bool generic_address_space_support() const;
-#endif
+#endif // CL_VERSION_3_0
+#ifdef CL_VERSION_3_1
+    dynarray<std::string_view> spirv_extended_instruction_sets() const;
+    dynarray<name_and_version_t> spirv_extensions() const;
+    dynarray<spirv::capability_t> spirv_capabilities() const;
+#endif // CL_VERSION_3_0
 
     /// Returns the number of parts, which a partition of the device by the
     /// specified affinity domain, would yield.

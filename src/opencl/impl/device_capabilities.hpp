@@ -124,6 +124,11 @@ inline std::string capabilities_t::supported_opencl_version_string() const
     return info::get_string<CL_DEVICE_VERSION>(device_handle_);
 }
 
+inline dynarray<std::string> capabilities_t::supported_extensions() const
+{
+    return info::get_tokenized_string<CL_DEVICE_EXTENSIONS>(device_handle_, ' ');
+}
+
 #if CL_VERSION_2_0
 inline size_t capabilities_t::image_pitch_alignment() const
 {
@@ -237,8 +242,9 @@ inline count_t capabilities_t::prospective_partition_size_for(affinity_domain_t 
     return detail::num_affinity_domain_parts(device_handle_, domain);
 }
 
+
 #if CL_VERSION_3_0
-inline dynarray<version::named_t> capabilities_t::supported_extensions() const
+inline dynarray<version::named_t> capabilities_t::supported_extension_versions() const
 {
     auto raw_arr = info::get_array<CL_DEVICE_EXTENSIONS_WITH_VERSION>(device_handle_);
     return transform_into_dynarray(raw_arr, make_named_version);
@@ -290,7 +296,24 @@ inline bool capabilities_t::generic_address_space_support() const
 {
     return info::get_scalar<CL_DEVICE_GENERIC_ADDRESS_SPACE_SUPPORT>(device_handle_);
 }
-#endif
+#endif // CL_VERSION_3_0
+#ifdef CL_VERSION_3_1
+dynarray<std::string_view> spirv_extended_instruction_sets() const
+{
+    auto raw_arr = info::get_array<CL_DEVICE_SPIRV_EXTENDED_INSTRUCTION_SETS>(device_handle_);
+    return opencl::to_dynarray<std::string_view>(raw_arr);
+}
+
+dynarray<std::string> capabilities_t::spirv_extensions() const
+{
+    return info::get_tokenized_string<CL_DEVICE_SPIRV_EXTENSIONS>(device_handle_, ' ');
+}
+
+dynarray<spirv::capability_t> capabilities_t::spirv_capabilities() const
+{
+    return info::get_array<CL_DEVICE_SPIRV_CAPABILITIES>(device_handle_);
+}
+#endif // CL_VERSION_3_1
 
 template <cl_device_info InfoParameter>
 info::parameter_value_t<InfoParameter> capabilities_t::get_raw_parameter() const

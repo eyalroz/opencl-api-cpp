@@ -136,6 +136,7 @@ namespace memory   { namespace migration { using flags_t = cl_mem_migration_flag
 #if cl_ext_buffer_device_address
 namespace memory  { using device_address_t = cl_mem_device_address_ext; }
 #endif
+namespace spirv { using capability_t = cl_uint; }
 
 // Forward declarations
 
