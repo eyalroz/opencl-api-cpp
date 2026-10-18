@@ -55,18 +55,20 @@ buffer_t create_using(
     memory::region_t host_side_storage,
     host_and_kernel_access_t access_spec = full_access() );
 
+template <typename T>
+buffer_t create_using(
+    context_t const& context,
+    span<T> host_side_storage,
+    host_and_kernel_access_t access_spec = full_access());
+
 buffer_t create_copy_of(
     context_t const& context,
     memory::region_t region_to_copy,
     host_and_kernel_access_t access_spec = full_access() );
 
 template <typename T>
-buffer_t create_using(
+buffer_t create_copy_of(
     context_t const& context,
-    span<T> host_side_storage,
-    host_and_kernel_access_t access_spec = full_access());
-template <typename T>
-buffer_t create_copy_of(context_t const& context,
     span<T> region_to_copy,
     host_and_kernel_access_t access_spec = full_access());
 
