@@ -228,18 +228,6 @@ queue::event_t queue_t::enqueue_pure_host_invokable(Invokable& invokable) const
     return queue::event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
 }
 
-//
-// template <
-//     typename NativeKernelFunction,
-//     typename BufferContainer,
-//     typename BufferParameterPositionContainer,
-//     typename ArgumentsContainer>
-// queue::event_t queue_t::enqueue_native_kernel_launch(
-//     NativeKernelFunction kernel_function,
-//     BufferContainer&& buffers,
-//     BufferParameterPositionContainer&& buffer_param_positions,
-//     ArgumentsContainer&& arguments);
-
 inline std::pair<queue::event_t, memory::region_t> queue_t::enqueue_map(
     buffer_t const& buffer, memory::mapping::spec_t const& spec) const
 {
