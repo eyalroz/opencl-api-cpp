@@ -17,12 +17,29 @@ namespace context {
 
 namespace device {
 
+/**
+ * Wrap a a raw OpenCL API device handle/identifier and context handle in a @ref device::buffer_t
+ * object.
+ *
+ * @ingroup nci_wrap
+ *
+ * @param[in] platform_handle The OpenCL platform on which the context and the buffer exist
+ * @param[in] context_handle The OpenCL context in which the buffer was created
+ * @param[in] handle handle of an OpenCL device (which, in itself, is platformm-independet
+ *
+ * @note a context-device is never owning! There is nothing to release when it goes out of
+ * scope.
+ */
 device_t wrap(platform::handle_t, context::handle_t, handle_t) noexcept;
 
 } // namespace device
 
-// TODO: Consider also holding the device index within the context's devices,
-// as a field
+/**
+ * This class represents a device, just like @ref opencl::device_t, but - one which
+ * is know to be within a given context. Holding devices with this information
+ * facilitates the creation of entities specific to a context-device pair, like
+ * queues and buffers - which cannot exist for a device, plainly, out-of-context.
+ */
 class device_t : public opencl::device_t {
 public:
     using handle_type = device::handle_t;

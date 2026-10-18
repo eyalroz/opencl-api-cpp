@@ -24,6 +24,14 @@ build_info_t wrap_build_info(
 } // namespace detail
 
 // TODO: Should I explicitly take a boolean for success/failure?
+/**
+ * A class for facilitating access to information about the results of building a certain
+ * OpenCL program (@ref {program_t}) for a certain target device (@ref {device_t}); does
+ * not actually own any information or handle.
+ *
+ * @note this class does not have an equivalent OpenCL type; its use avoids requiring
+ * making multiple calls with different handles.
+ */
 class build_info_t {
 protected:
     platform::handle_t platform_handle_;

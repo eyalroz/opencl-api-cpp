@@ -45,11 +45,37 @@ buffer_t wrap(
 /// @ingroup nci_from_handle
 buffer_t from_handle(handle_t handle, bool owning = false);
 
+/**
+ *  @param[in] context the context in which this buffer will be defined (and on whose devices it
+ *      might use).
+ *  @param[in] access_spec where and how should it be possible to access the new buffer?
+ *
+ *  @ingroup nci_create
+ */
+///@{
+/**
+ *  Create a new OpenCL buffer with no relation to pre-existing  memory allocations and memory objects.
+ *
+ *  @param[in] context the context in which this buffer will be defined (and on whose devices it might
+ *  used).
+ *  @param[in] size the new buffer's desired size in bytes
+ *
+ *  @ingroup nci_create
+ */
 buffer_t create(
     context_t const& context,
     size_t size,
     host_and_kernel_access_t access_spec = full_access() );
 
+/**
+ *  Create a new OpenCL buffer which uses an existing host-side memory region
+ *  (rather than allocating its own host-side storage).
+ *
+ *  @param[in] host_side_storage A region of host-side memory which the buffer
+ *      should use for storage. Also defines the new buffer's size.
+ *
+ */
+///@{
 buffer_t create_using(
     context_t const& context,
     memory::region_t host_side_storage,
@@ -60,7 +86,16 @@ buffer_t create_using(
     context_t const& context,
     span<T> host_side_storage,
     host_and_kernel_access_t access_spec = full_access());
+///@}
 
+/**
+ *  Create a new OpenCL buffer which initializes its storage to a copy of
+ *  some existing region of host-side memory.
+ *
+ *  @param[in] region_to_copy A region to which the buffer's contents will
+ *      initially be identical to. Also, defines the new buffer's size.
+ */
+///@{
 buffer_t create_copy_of(
     context_t const& context,
     memory::region_t region_to_copy,
@@ -71,7 +106,19 @@ buffer_t create_copy_of(
     context_t const& context,
     span<T> region_to_copy,
     host_and_kernel_access_t access_spec = full_access());
+///@}
+///@}
 
+/**
+ *  Arrange for a subregion of an existing OpenCL buffer to be usable as a buffer
+ *  of its own.
+ *
+ *  @param[in] parent The larger buffer within which the subregion of interest is
+ *      located. Also indicates the containing context.
+ *  @param[in] subregion A region to which the buffer's contents will
+ *      initially be identical to. Also, defines the new buffer's size.
+ *  @param[in] access_spec where and how should it be possible to access the new buffer?
+ */
 buffer_t create_sub_buffer(
     buffer_t const& parent,
     memory::subregion_spec_t subregion,
@@ -81,6 +128,19 @@ buffer_t create_sub_buffer(
 
 } // namespace buffer
 
+/**
+ * The main kind of memory object used for storing and reading data on compute devices; see also
+ * {@url https://registry.khronos.org/OpenCL/specs/unified/html/OpenCL_API.html#_buffer_objects}.
+ *
+ * The data in a buffer is plain bytes (octets), untyped, and contiguous. It may have more than
+ * one location of physical storage, e.g. storage in host-side memory and in device-side memory,
+ * on various devices; with OpenCL taking care the relevant location is up-to-date with the
+ * effect of earlier operations, before passing an address to its compute-device storage region,
+ * to a kernel.
+ *
+ * @note A buffer's host-side storage may be allocated by OpenCL itself, or provided by the user on
+ * construction.
+ */
 class buffer_t : public memory::object_t {
 public:
     using parent_type = memory::object_t;
@@ -111,6 +171,23 @@ public:
     memory::subregion_spec_t subregion() const;
 }; // class buffer_t
 
+/**
+ * Arrange it so that changes to the buffer are reflected in a region of host memory, or
+ * vice-versa, that changes to a region of host memory apply to the OpenCL buffer as well.
+ *
+ * @note this function is similar to the @ref mmap for files: Changes to some region of
+ * memory translate into changes to a file (or vice-versa).
+ *
+ * @param buffer the buffer to map
+ * @param spec specification of what kind of mapping to perform: what part of the buffer, and
+ *    whether to map for reading buffer contents via the memory region, or for having changes
+ *    to the region apply to the buffer as well (mapping for writing). It is also possible to
+ *    specify a request to unmap a previously-mapped buffer.
+ * @param queue
+ * @param blocking
+ * @return the mapped region, preceded by an event whose completion guaranbtees the mapped
+ * region being ready for use.
+ */
 std::pair<queue::event_t, memory::region_t>
 map(buffer_t const& buffer, memory::mapping::spec_t const& spec, queue_t const& queue, bool blocking);
 
