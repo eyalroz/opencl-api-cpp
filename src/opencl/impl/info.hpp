@@ -509,6 +509,19 @@ OCLW_TYPE_MAPPER(CL_SAMPLER_PROPERTIES, info::sampler, cl_sampler_properties *)
 // OCLW_TYPE_MAPPER(CL_DEVICE_CROSS_DEVICE_SHARED_MEM_CAPABILITIES_INTEL, info::device, cl_device_unified_shared_memory_capabilities_intel )
 // OCLW_TYPE_MAPPER(CL_DEVICE_SHARED_SYSTEM_MEM_CAPABILITIES_INTEL, info::device, cl_device_unified_shared_memory_capabilities_intel )
 
+#ifdef CL_VERSION_3_1
+OCLW_TYPE_MAPPER(CL_DEVICE_UUID, info::device, cl_uchar *) // todo: support also as extension
+OCLW_TYPE_MAPPER(CL_DRIVER_UUID, info::device, cl_uchar *) // todo: support also as extension
+OCLW_TYPE_MAPPER(CL_DEVICE_LUID_VALID, info::device, bool) // todo: support also as extension
+OCLW_TYPE_MAPPER(CL_DEVICE_LUID, info::device, cl_uchar *) // todo: support also as extension
+OCLW_TYPE_MAPPER(CL_DEVICE_INTEGER_DOT_PRODUCT_CAPABILITIES, info::device, cl_device_integer_dot_product_capabilities) // todo: support also as extension
+OCLW_TYPE_MAPPER(CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_8BIT, info::device, cl_device_integer_dot_product_acceleration_properties) // todo: support also as extension
+OCLW_TYPE_MAPPER(CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_4x8BIT_PACKED, info::device, cl_device_integer_dot_product_capabilities) // todo: support also as extension
+OCLW_TYPE_MAPPER(CL_DEVICE_SPIRV_EXTENDED_INSTRUCTION_SETS, info::device, char *)
+OCLW_TYPE_MAPPER(CL_DEVICE_SPIRV_EXTENSIONS, info::device, char *)
+OCLW_TYPE_MAPPER(CL_DEVICE_SPIRV_CAPABILITIES, info::device, cl_uint *)
+#endif // CL_VERSION_3_1
+
 #undef OCLW_TYPE_MAPPER
 
 } // namespace detail
