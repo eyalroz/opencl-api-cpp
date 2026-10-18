@@ -228,29 +228,6 @@ queue::event_t queue_t::enqueue_pure_host_invokable(Invokable& invokable) const
     return queue::event::detail::wrap_by_queue(result_event_handle, *this, is_owning);
 }
 
-inline std::pair<queue::event_t, memory::region_t>
-map(buffer_t const& buffer, memory::mapping::spec_t const& spec, queue_t const& queue, bool blocking)
-{
-    event::handle_t result_event_handle;
-    status_t status;
-    span<event::handle_t> no_events {};
-    auto subregion = spec.subregion.value_or(memory::subregion_spec_t{0, buffer.size_in_bytes()});
-    auto mapping_ptr = clEnqueueMapBuffer(
-        queue.handle(),
-        buffer.handle(),
-        blocking,
-        memory::detail::make_map_flags(spec.kind),
-        subregion.origin, subregion.size,
-        no_events.size(), no_events.data(),
-        &result_event_handle, &status);
-    throw_if_error_lazy(status, "clEnqueueMapBuffer", "Mapping " + opencl::detail::identify(buffer)
-            + "to host memory on " + opencl::detail::identify(queue));
-    return {
-        queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning),
-        memory::region_t { mapping_ptr, spec.subregion->size }
-    };
-}
-
 //
 // template <
 //     typename NativeKernelFunction,
@@ -266,50 +243,18 @@ map(buffer_t const& buffer, memory::mapping::spec_t const& spec, queue_t const& 
 inline std::pair<queue::event_t, memory::region_t> queue_t::enqueue_map(
     buffer_t const& buffer, memory::mapping::spec_t const& spec) const
 {
-    return map(buffer, spec, *this, is_non_blocking);
-}
-
-inline queue::event_t unmap(memory::object_t const& memory_object, void* mapping, queue_t const& queue)
-{
-    event::handle_t result_event_handle;
-    span<event::handle_t> no_events {};
-    auto status = clEnqueueUnmapMemObject(
-        queue.handle(),  memory_object.handle(), mapping,
-        no_events.size(), no_events.data(), &result_event_handle);
-    throw_if_error_lazy(status, "clEnqueueUnmapMemObject", "Unmapping " + detail::identify(memory_object));
-    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+    return memory::map(buffer, spec, *this);
 }
 
 inline queue::event_t queue_t::enqueue_unmap(memory::object_t const& memory_object, void* mapping) const
 {
-    return unmap(memory_object, mapping, *this);
-}
-
-inline std::pair<queue::event_t, memory::region_t>
-map(image_t const& image, image::mapping::spec_t const& spec, queue_t const& queue, bool blocking)
-{
-    event::handle_t event_handle;
-    status_t status;
-    span<event::handle_t> no_events {};
-    auto mapping_ptr = clEnqueueMapImage(queue.handle(), image.handle(), blocking,
-        memory::detail::make_map_flags(spec.kind),
-        spec.box ? nullptr : spec.box->origin.data(),
-        spec.box ? nullptr : spec.box->extents.data(),
-        (image.dimensionality() > 1 and spec.pitches) ? const_cast<size_t*>(&((*spec.pitches)[0])) : nullptr,
-        (image.dimensionality() > 1 and spec.pitches) ? const_cast<size_t*>(&((*spec.pitches)[1])) : nullptr,
-        no_events.size(),
-        no_events.data(),
-        &event_handle,
-        &status) CL_API_SUFFIX__VERSION_1_0;
-    throw_if_error_lazy(status, "clEnqueueMapImage", "");
-    auto mapping = memory::region_t { mapping_ptr, image.size_in_bytes() };
-    return std::make_pair(queue::event::detail::wrap_by_queue(event_handle, queue, is_owning), mapping );
+    return memory::unmap(memory_object, mapping, *this);
 }
 
 inline std::pair<queue::event_t, memory::region_t>
 queue_t::enqueue_map( image_t const& image, image::mapping::spec_t const& spec) const
 {
-    return map(image, spec, *this, is_non_blocking);
+    return memory::map(image, spec, *this);
 }
 
 template <typename EventContainer>

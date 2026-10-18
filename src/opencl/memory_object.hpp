@@ -101,11 +101,6 @@ inline bool operator!=(object_t const& lhs, object_t const& rhs) noexcept { retu
 
 } // namespace memory
 
-// Notes:
-// - The unmap enqueue is _always_ non-blocking.
-// - See the two map() functions, for buffer_t and image_t
-queue::event_t unmap(memory::object_t const& memory_object, void* mapping, queue_t const& queue);
-
 template <typename T>
 T upcast(memory::object_t const& memory_object);
 

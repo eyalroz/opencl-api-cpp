@@ -547,6 +547,69 @@ queue::event_t zero(B &&zeroed, queue_t const &queue)
     return set(std::move(zeroed), static_cast<T>(0), queue);
 }
 
+inline std::pair<queue::event_t, memory::region_t>
+map(buffer_t const& buffer, memory::mapping::spec_t const& spec, queue_t const& queue)
+{
+    event::handle_t result_event_handle;
+    status_t status;
+    span<event::handle_t> no_events {};
+    auto subregion = spec.subregion.value_or(memory::subregion_spec_t{0, buffer.size_in_bytes()});
+    auto mapping_ptr = clEnqueueMapBuffer(
+        queue.handle(),
+        buffer.handle(),
+        is_non_blocking,
+            // Q: Why not support saying the map is blocking?
+            // A: For consistency with the unmap function, and the fact that it's redundant
+            //    given the returned event
+        memory::detail::make_map_flags(spec.kind),
+        subregion.origin, subregion.size,
+        no_events.size(), no_events.data(),
+        &result_event_handle, &status);
+    throw_if_error_lazy(status, "clEnqueueMapBuffer", "Mapping " + opencl::detail::identify(buffer)
+            + "to host memory on " + opencl::detail::identify(queue));
+    return {
+        queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning),
+        memory::region_t { mapping_ptr, spec.subregion->size }
+    };
+}
+
+inline queue::event_t unmap(object_t const& memory_object, void* mapped_region, queue_t const& queue)
+{
+    event::handle_t result_event_handle;
+    span<event::handle_t> no_events {};
+    auto status = clEnqueueUnmapMemObject(
+        queue.handle(),  memory_object.handle(), mapped_region,
+        no_events.size(), no_events.data(), &result_event_handle);
+    throw_if_error_lazy(status, "clEnqueueUnmapMemObject", "Unmapping " + opencl::detail::identify(memory_object));
+    return queue::event::detail::wrap_by_queue(result_event_handle, queue, is_owning);
+}
+
+inline std::pair<queue::event_t, region_t>
+map(image_t const& image, image::mapping::spec_t const& spec, queue_t const& queue)
+{
+    event::handle_t event_handle;
+    status_t status;
+    span<event::handle_t> no_events {};
+    auto mapping_ptr = clEnqueueMapImage(queue.handle(), image.handle(), isnt_blocking,
+        detail::make_map_flags(spec.kind),
+        spec.box ? nullptr : spec.box->origin.data(),
+        spec.box ? nullptr : spec.box->extents.data(),
+        (image.dimensionality() > 1 and spec.pitches) ? const_cast<size_t*>(&((*spec.pitches)[0])) : nullptr,
+        (image.dimensionality() > 1 and spec.pitches) ? const_cast<size_t*>(&((*spec.pitches)[1])) : nullptr,
+        no_events.size(),
+        no_events.data(),
+        &event_handle,
+        &status) CL_API_SUFFIX__VERSION_1_0;
+    throw_if_error_lazy(status, "clEnqueueMapImage", "");
+    auto mapping = memory::region_t { mapping_ptr, image.size_in_bytes() };
+    return std::make_pair(queue::event::detail::wrap_by_queue(event_handle, queue, is_owning), mapping );
+}
+
+inline queue::event_t unmap(object_t const& memory_object, region_t mapped_region, queue_t const& queue)
+{
+    return unmap(memory_object, mapped_region.data(), queue);
+}
+
 inline queue::event_t migrate(
     memory::object_t const& object,
     queue_t const& queue,

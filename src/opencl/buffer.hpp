@@ -171,26 +171,6 @@ public:
     memory::subregion_spec_t subregion() const;
 }; // class buffer_t
 
-/**
- * Arrange it so that changes to the buffer are reflected in a region of host memory, or
- * vice-versa, that changes to a region of host memory apply to the OpenCL buffer as well.
- *
- * @note this function is similar to the @ref mmap for files: Changes to some region of
- * memory translate into changes to a file (or vice-versa).
- *
- * @param buffer the buffer to map
- * @param spec specification of what kind of mapping to perform: what part of the buffer, and
- *    whether to map for reading buffer contents via the memory region, or for having changes
- *    to the region apply to the buffer as well (mapping for writing). It is also possible to
- *    specify a request to unmap a previously-mapped buffer.
- * @param queue
- * @param blocking
- * @return the mapped region, preceded by an event whose completion guaranbtees the mapped
- * region being ready for use.
- */
-std::pair<queue::event_t, memory::region_t>
-map(buffer_t const& buffer, memory::mapping::spec_t const& spec, queue_t const& queue, bool blocking);
-
 } // namespace opencl
 
 #endif // OPENCL_WRAPPERS_BUFFER_HPP_

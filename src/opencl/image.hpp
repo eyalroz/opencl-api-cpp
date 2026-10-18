@@ -254,9 +254,6 @@ public:
     dimensionality_t dimensionality(bool one_is_trivial = true) const;
 }; // class image_t
 
-inline std::pair<queue::event_t, memory::region_t>
-map(image_t const& image, image::mapping::spec_t const& spec, queue_t const& queue, bool blocking = is_non_blocking);
-
 template <> image_t upcast<image_t>(memory::object_t const& memory_object);
 
 } // namespace opencl
