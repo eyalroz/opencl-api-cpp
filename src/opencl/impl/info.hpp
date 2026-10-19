@@ -682,7 +682,9 @@ template <int InfoParameter>
 dynarray<std::string> get_tokenized_string(handle_t<InfoParameter> handle, char delimiter)
 {
     auto untokenized = get_array<InfoParameter>(handle);
-    auto untokenized_as_sv = string_view{untokenized.data(), untokenized.size()};
+    // Chomp a possible trailing nul character
+    size_t untokenized_size = untokenized.size() - ((untokenized.back() == '\0') ? 1 : 0);
+    auto untokenized_as_sv = string_view{ untokenized.data(), untokenized_size };
     auto tokens_in_arr = opencl::detail::split(untokenized_as_sv, delimiter);
     static auto generator = [&](size_t i) { return tokens_in_arr[i]; };
     return generate_dynarray<std::string>(tokens_in_arr.size(), generator);
