@@ -21,7 +21,7 @@
     exit(EXIT_FAILURE);
 }
 
-opencl::platform_t get_first_opencl_2_x_platform() {
+static opencl::platform_t get_first_opencl_2_x_platform() {
     auto platforms = opencl::platforms();
     auto it = std::ranges::find_if(platforms,
         [](opencl::platform_t const& p) { return p.version() >= opencl::make_version(2,0); });
@@ -78,7 +78,8 @@ int main()
         }
     )CLC"};
 
-    auto platform = opencl::platform::get(1); //get_first_opencl_2_x_platform();
+    auto platform = get_first_opencl_2_x_platform();
+        // opencl::platform::get(0);
     auto context = opencl::context::create_with_all_devices(platform);
     auto sources = { kernel1, kernel2 };
     auto wrapped_sources = opencl::program::source::create(context, sources);
