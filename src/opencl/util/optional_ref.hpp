@@ -31,6 +31,10 @@ namespace opencl {
  */
 template<typename T>
 struct optional_ref {
+	using value_type = T;
+	using refernece_type = T&;
+	static_assert(not std::is_reference<T>::value, "optional_ref is intended for non-reference types");
+
 	optional_ref &operator=(const optional_ref &other) = default;
 
 	optional_ref &operator=(optional_ref &&other) = default;
@@ -49,7 +53,7 @@ struct optional_ref {
 
 	// The following voodoo will allow an optional_ref<const S> to be constructible from an optional<S>,
 	// as well as optional_ref<S> from optional<S>
-	template <typename U, typename = std::enable_if<std::is_same<typename std::remove_cv<T>::type, U>::value> >
+	template <typename U, typename = std::enable_if<std::is_same<typename std::remove_cv<T>::type, typename std::remove_cv<U>::type>::value> >
 	optional_ref(optional<U> const &opt) noexcept : ptr_( opt ? &(*opt) : nullptr )
 	{ }
 
@@ -61,9 +65,7 @@ struct optional_ref {
 	{ return *ptr_; }
 
 	T& value_or(T& fallback_ref) const
-	{
-		return has_value() ? value() : fallback_ref;
-	}
+	{ return has_value() ? value() : fallback_ref; }
 
 	T& operator*() noexcept { return *ptr_; }
 	const T& operator*() const noexcept { return *ptr_; }
@@ -75,6 +77,12 @@ struct optional_ref {
 
 	operator bool() const noexcept
 	{ return has_value(); }
+
+	template <typename U, typename = std::enable_if<
+		std::is_same<typename std::remove_cv<T>::type, typename std::remove_cv<U>::type>::value>
+	>
+	operator optional<U>() noexcept(noexcept(std::is_nothrow_constructible<T, U>::value))
+	{ return has_value() ? optional<U>(*ptr_) : nullopt; }
 
 	void reset() noexcept
 	{ ptr_ = nullptr; }
