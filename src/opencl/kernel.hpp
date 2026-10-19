@@ -6,6 +6,8 @@
 #ifndef OPENCL_WRAPPERS_KERNEL_HPP_
 #define OPENCL_WRAPPERS_KERNEL_HPP_
 
+#include <optional>
+
 #include "types.hpp"
 #include "context.hpp"
 #include "program.hpp"
@@ -72,6 +74,25 @@ struct info_t {
 } // namespace argument
 
 #endif // CL_VERSION_1_2
+
+#if defined(CL_VERSION_3_1) || defined(cl_khr_suggested_local_work_size)
+
+/**
+ * Obtain the local work dimensions which OpenCL would choose for a given kernel
+ * and given other parameters
+ *
+ * @note see also @url https://registry.khronos.org/OpenCL/specs/unified/refpages/man/html/clGetKernelSuggestedLocalWorkSizeKHR.html
+ *
+ * @return The same local work dimensions which would be set for the kernel, if
+ * one were to enqueue it without setting local work dimensions.
+ */
+nd_range::dimensions_t suggested_local_work_dimensions(
+    kernel_t const& kernel,
+    queue_t const& queue,
+    nd_range::dimensions_t global_dimensions,
+    optional<nd_range::dimensions_t> offset);
+
+#endif // defined(CL_VERSION_3_1) || defined(cl_khr_suggested_local_work_size)
 
 } // namespace kernel
 

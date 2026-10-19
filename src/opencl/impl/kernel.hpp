@@ -277,6 +277,33 @@ inline kernel_t clone(kernel_t const& kernel)
     return wrap(kernel.platform_handle(), kernel.context_handle(), kernel.program_handle(), result_handle, is_owning);
 }
 
+#if defined(CL_VERSION_3_1) || defined(cl_khr_suggested_local_work_size)
+
+inline nd_range::dimensions_t suggested_local_work_dimensions(
+    kernel_t const& kernel,
+    queue_t const& queue,
+    nd_range::dimensions_t global_dimensions,
+    optional<nd_range::dimensions_t> offset)
+{
+#if defined(CL_VERSION_3_1)
+#define OCLW_GET_SUGGESTED_LOCAL_WORK_SIZE_FUNC clGetKernelSuggestedLocalWorkSize
+#else
+#define OCLW_GET_SUGGESTED_LOCAL_WORK_SIZE_FUNC clGetKernelSuggestedLocalWorkSizeKHR
+#endif
+    size_t result;
+    auto status = OCLW_GET_SUGGESTED_LOCAL_WORK_SIZE_FUNC(
+        queue.handle(), kernel.handle(), global_dimensions.size(),
+        offset ? offset->data() : nullptr,
+        global_dimensions.data(), &result);
+    throw_if_error_lazy(status, OCLW_STRINGIFY(OCLW_GET_SUGGESTED_LOCAL_WORK_SIZE_FUNC),
+        "Getting the suggested local work dimensions for " + opencl::detail::identify(kernel)
+        + " on " + opencl::detail::identify(queue));
+    return result;
+}
+
+#endif // defined(CL_VERSION_3_1) || defined(cl_khr_suggested_local_work_size)
+
+
 } // namespace kernel
 
 #if CL_VERSION_2_0
