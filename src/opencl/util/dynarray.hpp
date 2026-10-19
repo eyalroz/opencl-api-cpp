@@ -179,10 +179,12 @@ public: // constructors and destructor
 #endif
     }
 
+    // We're conditioning on having more than one element, as otherwise, this constructor would
+    // be overly easy to match. The case of size 1 will require explicit invocation; see below
     template <
         typename... Us,
         typename = typename std::enable_if<
-            sizeof...(Us) >= 1
+            (sizeof...(Us) > 1)
             and detail::all_true<std::is_constructible<value_type, Us>::value...>::value
         >::type
     >
@@ -193,6 +195,16 @@ public: // constructors and destructor
     {
         T* ptr = data();
         (void) std::initializer_list<void*> { new(ptr++) T(values) ...  };
+    }
+
+    template <typename U, typename = typename std::enable_if<std::is_constructible<value_type, U>::value>::type>
+    explicit CONSTEXPR_CPP14 dynarray(U value) :
+        span_type{ detail::operator_new<T>(1), 1 },
+        allocator_{ detail::operator_new<T> },
+        deleter_{ detail::operator_delete<T> }
+    {
+        T* ptr = data();
+        (void) std::initializer_list<void*> { new(ptr++) T(value) };
     }
 
     ///@}

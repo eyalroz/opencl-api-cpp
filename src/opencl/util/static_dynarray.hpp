@@ -113,15 +113,19 @@ public: // constructors and destructor
 	CONSTEXPR_CPP14 static_dynarray(size_type size, const_pointer data)
 		noexcept(noexcept(initialize_data(size, data))) : size_{size} { initialize_data(size, data); }
 
-	// TODO: Perhaps drop the enable_if ?
+	// We're conditioning on having more than one element, as otherwise, this constructor would
+	// be overly easy to match. The case of size 1 will require explicit invocation; see below
 	template <
 		typename... Us,
 		typename = typename std::enable_if<
-			sizeof...(Us) >= 1
+			(sizeof...(Us) > 1)
 			and detail::all_true<std::is_constructible<value_type, Us>::value...>::value
 		>::type
 	>
 	CONSTEXPR_CPP14 static_dynarray(Us... values) noexcept : size_(sizeof...(Us)), data_{ values... } {}
+
+	template <typename U, typename = typename std::enable_if<std::is_constructible<value_type, U>::value>::type>
+	explicit CONSTEXPR_CPP14 static_dynarray(U value) noexcept : size_(1), data_{ value } {}
 
 	CONSTEXPR_CPP14 static_dynarray(static_dynarray const& other) noexcept(noexcept(initialize_data(other.size_, other.data_)))
 	: size_{other.size_} STATIC_DYNARRAY_MAYBE_INITIALZE_DATA
