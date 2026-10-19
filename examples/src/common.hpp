@@ -46,7 +46,10 @@ std::ostream& operator<<(std::ostream& os, opencl::nd_range::dimensions_t const&
 std::ostream& operator<<(std::ostream& os, opencl::kernel::launch_configuration_t const& lc)
 {
 	os << '[';
-	os << "dimensions: workgroup: " << lc.dimensions.workgroup << "; ";
+	os << "dimensions: workgroup: ";
+	if (lc.dimensions.workgroup) { os << *lc.dimensions.workgroup; }
+	else { os << "(unspecified) "; }
+	os << "; ";
 	os << "overall: " << lc.dimensions.overall << "; ";
 	os << ']';
 	return os;

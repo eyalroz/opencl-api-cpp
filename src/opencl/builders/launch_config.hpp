@@ -80,7 +80,7 @@ public:
 	launch_configuration_t& dimensionality(nd_range::dimension_index_t dimensionality);
 	launch_configuration_t& clone(kernel::launch_configuration_t const& config);
 #ifndef NDEBUG
-	void validate_workgroup_dimensions(nd_range::dimensions_t const& workgroup_dims) const;
+	void validate_workgroup_dimensions(optional_ref<nd_range::dimensions_t const> workgroup_dims) const;
 	void validate_grid_dimensions(dimensions_t const& grid_dims) const;
 	void validate_overall_dimensions(dimensions_t const& overall_dims) const;
 	void validate_device(device_t const& device) const;

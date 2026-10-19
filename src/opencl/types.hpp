@@ -466,7 +466,7 @@ using overall_dimensions_t = dimensions_t;
  */
 struct composite_dimensions_t {
     nd_range::overall_dimensions_t   overall;
-    nd_range::workgroup_dimensions_t workgroup;
+    optional<nd_range::workgroup_dimensions_t> workgroup;
 
     /// @returns The overall dimensions of the entire grid as a single 3D entity
     overall_dimensions_t flatten() const noexcept { return overall; }

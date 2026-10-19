@@ -194,7 +194,8 @@ inline composite_dimensions_t composite_dimensions_t::point(dimension_index_t di
 
 inline void composite_dimensions_t::round_up_overall_dimensions()
 {
-    overall = round_up(overall, workgroup);
+    if (not workgroup) { return; }
+    overall = round_up(overall, *workgroup);
 }
 
 } // namespace nd_range

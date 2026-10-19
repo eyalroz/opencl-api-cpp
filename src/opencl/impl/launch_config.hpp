@@ -42,28 +42,31 @@ inline void validate_overall_dimensions(nd_range::dimensions_t const& nd_range_d
 
 inline void validate_composite_dimensions(nd_range::composite_dimensions_t const& dims)
 {
-    validate_workgroup_dimensions(dims.workgroup);
+    if (dims.workgroup) { validate_workgroup_dimensions(*dims.workgroup); }
     validate_overall_dimensions(dims.overall);
 }
 
 // Note: The reason for the verbose name is the identity of the block and nd_range dimension types
-inline void validate_workgroup_dimension_compatibility(device_t const& device, nd_range::workgroup_dimensions_t const& dimensions)
+inline void validate_workgroup_dimension_compatibility(
+    device_t const& device,
+    optional_ref<nd_range::workgroup_dimensions_t const> dimensions)
 {
+    if (not dimensions) { return; }
     auto caps = device.capabilities();
     auto max_dimensionality = caps.maximum_grid_dimensionality();
-    if (dimensions.dimensionality() > max_dimensionality) {
+    if (dimensions->dimensionality() > max_dimensionality) {
         std::ostringstream oss;
-        oss << "Workgroup dimensions " << nd_range::detail::identify(dimensions)
-            << " are of dimensionality " << dimensions.dimensionality()
+        oss << "Workgroup dimensions " << nd_range::detail::identify(*dimensions)
+            << " are of dimensionality " << dimensions->dimensionality()
             << " , while " + opencl::detail::identify(device)
             << " only supports launches of dimensionality up to " << max_dimensionality;
         throw std::invalid_argument(oss.str());
     }
     auto max_threads_per_workgroup = caps.maximum_workgroup_size();
-    auto volume = dimensions.volume();
+    auto volume = dimensions->volume();
     if (volume > max_threads_per_workgroup) {
         std::ostringstream oss;
-        oss << "Workgroup dimensions " << nd_range::detail::identify(dimensions)
+        oss << "Workgroup dimensions " << nd_range::detail::identify(*dimensions)
             << "have " << volume << " threads overall, exceeding " << max_threads_per_workgroup
             << " , the maximum number of threads per workgroup supported by "
             << opencl::detail::identify(device);

@@ -211,13 +211,14 @@ inline queue::event_t enqueue_primed_kernel_launch(
     span<event::handle_t> no_events {};
     event::handle_t result_event_handle;
     auto launch_config_offset = launch_config.offset ? launch_config.offset->data() : nullptr;
+    auto local_work_dims = launch_config.dimensions.workgroup ? launch_config.dimensions.workgroup->data() : nullptr;
     auto status = clEnqueueNDRangeKernel(
         queue.handle(),
         kernel.handle(),
         launch_config.dimensions.dimensionality(),
         launch_config_offset,
         launch_config.dimensions.overall.data(),
-        launch_config.dimensions.workgroup.data(),
+        local_work_dims,
         no_events.size(), no_events.data(),
         &result_event_handle);
     throw_if_error_lazy(status, "clEnqueueNDRangeKernel", "Enqueueing " + opencl::detail::identify(kernel)

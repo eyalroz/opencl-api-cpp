@@ -222,7 +222,8 @@ launch_configuration_t::clone(kernel::launch_configuration_t const& config)
 }
 
 #ifndef NDEBUG
-inline void launch_configuration_t::validate_workgroup_dimensions(nd_range::dimensions_t const& workgroup_dims) const
+inline void launch_configuration_t::validate_workgroup_dimensions(
+	optional_ref<nd_range::dimensions_t const> workgroup_dims) const
 {
 	if (device_) {
 		kernel::detail::validate_workgroup_dimension_compatibility(*device_, workgroup_dims);
